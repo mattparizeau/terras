@@ -34,11 +34,14 @@ void TerraView::init(){
 
 void TerraView::initGL(){
 	/* Setup SDL */
+	glEnable(GL_TEXTURE_2D);
 	glViewport( 0, 0, window_width, window_height );
 	glMatrixMode( GL_PROJECTION );
 	glEnable( GL_DEPTH_TEST );
 	gluPerspective( FOV, (float)window_width/window_height, 0.1, 100 );
 	glMatrixMode( GL_MODELVIEW );
+	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
+	glDisable (GL_LIGHTING);
 
 	loadTextures();
 	return;
@@ -46,12 +49,12 @@ void TerraView::initGL(){
 
 void TerraView::loadTextures(){
 	SDL_Surface *image;
-	/*image=IMG_Load("nehe.bmp");
+	image=IMG_Load("nehe.bmp");
 	if(!image) {
 		printf("IMG_Load: %s\n", IMG_GetError());
-	}*/
+	}
 	//printf("Image loaded\n");
-	//texture = SDL_GL_LoadTexture(image, texcoords);
+	texture = SDL_GL_LoadTexture(image, texcoords);
 }
 
 void TerraView::setController(TerraController *c){
@@ -67,12 +70,17 @@ void TerraView::draw(){
 	glRotatef(xangle, 0, 1, 0);
 
 	glBegin(GL_QUADS);
+	glBindTexture(GL_TEXTURE_2D, texture);
+	glTexCoord2f(texcoords[0],texcoords[1]);
 	glColor3ub(000, 000, 000); 
 	glVertex3f(-1,-1,-1);
+	glTexCoord2f(texcoords[2],texcoords[1]);
 	glColor3ub(000, 000, 255);
 	glVertex3f(-1,-1, 1);
+	glTexCoord2f(texcoords[2],texcoords[3]);
 	glColor3ub(000, 255, 255);
 	glVertex3f(-1, 1, 1);
+	glTexCoord2f(texcoords[0],texcoords[3]);
 	glColor3ub(000, 255, 000);
 	glVertex3f(-1, 1,-1);
 

@@ -25,15 +25,13 @@ int main(int argc, char **argv) {
 			SDL_GetError() );
 		exit(1);
 	}
-	
-	SDL_GetVideoInfo();
-	
+
 	controller->setView(view);
 	view->setController(controller);
 
+
 	view->init();
 	view->initGL();
-	
 	controller->run();
 }
 
