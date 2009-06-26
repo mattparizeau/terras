@@ -5,7 +5,9 @@ class TerraModel;
 /** Stores the status of the game within the controller.
  */
 struct GameStatus{
-	
+	int videoFlags;
+	bool paused;
+	const SDL_VideoInfo *videoInfo;
 };
 
 /** Configuration information. 
@@ -19,7 +21,7 @@ class TerraController{
 	public:
 		TerraController();
 		~TerraController();
-
+		GameStatus status;
 		void run();
 
 		void setView(TerraView *newView);
@@ -29,6 +31,6 @@ class TerraController{
 		TerraView *view;
 	private:
 		bool key[321];
-		GameStatus status;
+		
 		GameConfig config;
 };

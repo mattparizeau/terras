@@ -15,12 +15,25 @@ bool key[321];
 // Process pending events
 
 int main(int argc, char **argv) {
-	SDL_Init(SDL_INIT_VIDEO);
-
 	TerraController *controller = new TerraController();
 	TerraView *view = new TerraView();
 
+	printf("Starting terras...\n");
+
+	if(SDL_Init(SDL_INIT_VIDEO) < 0){
+		fprintf( stderr, "SDL Video initialization failed: %s\n",
+			SDL_GetError() );
+		exit(1);
+	}
+	
+	SDL_GetVideoInfo();
+	
 	controller->setView(view);
+	view->setController(controller);
+
+	view->init();
+	view->initGL();
+	
 	controller->run();
 }
 

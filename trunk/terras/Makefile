@@ -2,7 +2,7 @@
 CC := gcc
 
 #LIBDIRS := -I/usr/include
-LIBS := -lSDL -lGLU -lGL
+LIBS := -lSDL -lGLU -lGL -lSDL_image
 CFLAGS := -Wall -g $(LIBDIRS)
 LDFLAGS := -lm  $(LIBS)
 
@@ -13,7 +13,7 @@ LDFLAGS := -lm  $(LIBS)
 
 all: terras
 
-terras: terras.o view.o controller.o model.o
+terras: terras.o view.o controller.o model.o sdltextures.o
 	$(CC) $^ -o $@ $(LDFLAGS)
 
 clean:
