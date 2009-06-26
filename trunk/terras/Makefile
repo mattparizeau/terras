@@ -13,7 +13,7 @@ LDFLAGS := -lm  $(LIBS)
 
 all: terras
 
-terras: terras.o view.o controller.o model.o sdltextures.o
+terras: terras.o view.o controller.o model.o sdltextures.o node.o
 	$(CC) $^ -o $@ $(LDFLAGS)
 
 clean:
