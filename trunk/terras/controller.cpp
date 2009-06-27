@@ -28,10 +28,15 @@ void TerraController::run() {
 bool TerraController::events() {
 	int deltax,deltay;
 	SDL_Event event;
-	if( SDL_PollEvent(&event) ) {
+	Uint8 mouseKeys;
+
+	if(SDL_WaitEvent(&event) ) {
 		switch( event.type ) {
 			case SDL_KEYDOWN : key[ event.key.keysym.sym ]=true ;   break;
 			case SDL_KEYUP   : key[ event.key.keysym.sym ]=false;   break;
+			case SDL_MOUSEBUTTONDOWN:
+				//SDL_WM_GrabInput(SDL_GRAB_ON);
+				break;
 			case SDL_QUIT    : return false; break;
 		}
 	}
@@ -41,9 +46,8 @@ bool TerraController::events() {
 	if( key[SDLK_DOWN ] ) {view->adjustAngle( 0, 1);}
 
 	/* Mouse movement */
-	SDL_GetRelativeMouseState(&deltax, &deltay);
+	mouseKeys = SDL_GetRelativeMouseState(&deltax, &deltay);
 	view->adjustAngle((double)deltax,(double)deltay);
-
 
 	return true;
 }

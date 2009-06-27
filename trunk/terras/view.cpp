@@ -11,11 +11,6 @@
 #include "sdltextures.h"
 
 
-
-// Process pending events
-
-
-
 TerraView::TerraView(){
 	info = SDL_GetVideoInfo();
 	xangle = 0; yangle = 0;
@@ -37,6 +32,8 @@ void TerraView::init(){
 
 void TerraView::initGL(){
 	/* Setup SDL */
+	loadTextures();
+
 	glEnable(GL_TEXTURE_2D);
 	glViewport( 0, 0, window_width, window_height );
 	glMatrixMode( GL_PROJECTION );
@@ -46,18 +43,47 @@ void TerraView::initGL(){
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
 	glDisable (GL_LIGHTING);
 
-	loadTextures();
+	
 	return;
 }
 
+
 void TerraView::loadTextures(){
 	SDL_Surface *image;
-	image=IMG_Load("nehe.bmp");
-	if(!image) {
-		printf("IMG_Load: %s\n", IMG_GetError());
-	}
-	//printf("Image loaded\n");
-	texture = SDL_GL_LoadTexture(image, texcoords);
+	//glGenTextures(6,texture);
+
+	image=IMG_Load("test/test0.bmp");
+	if(!image) printf("IMG_Load: %s\n", IMG_GetError());
+	texture[0] = SDL_GL_LoadTexture(image, texcoords[0]);
+	SDL_FreeSurface(image);
+
+	image=IMG_Load("test/test1.bmp");
+	if(!image) printf("IMG_Load: %s\n", IMG_GetError());
+	texture[1] = SDL_GL_LoadTexture(image, texcoords[1]);
+	SDL_FreeSurface(image);
+
+	image=IMG_Load("test/test2.bmp");
+	if(!image) printf("IMG_Load: %s\n", IMG_GetError());
+	texture[2] = SDL_GL_LoadTexture(image, texcoords[2]);
+	SDL_FreeSurface(image);
+
+	image=IMG_Load("test/test3.bmp");
+	if(!image) printf("IMG_Load: %s\n", IMG_GetError());
+	texture[3] = SDL_GL_LoadTexture(image, texcoords[3]);
+	SDL_FreeSurface(image);
+
+	image=IMG_Load("test/test4.bmp");
+	if(!image) printf("IMG_Load: %s\n", IMG_GetError());
+	texture[4] = SDL_GL_LoadTexture(image, texcoords[4]);
+	SDL_FreeSurface(image);
+
+	image=IMG_Load("test/test5.bmp");
+	if(!image) printf("IMG_Load: %s\n", IMG_GetError());
+	texture[5] = SDL_GL_LoadTexture(image, texcoords[5]);
+	SDL_FreeSurface(image);
+
+	printf("OpenGL texture names: %d, %d, %d, %d, %d, %d\n",
+		texture[0],texture[1],texture[2],texture[3],texture[4],texture[5]);
 }
 
 void TerraView::setController(TerraController *c){
@@ -82,74 +108,85 @@ void TerraView::draw(){
 	glRotatef(yangle, 1, 0, 0);
 	glRotatef(xangle, 0, 1, 0);
 
-	glBegin(GL_QUADS);
+	
 	/* NORTH FACE */
-	glBindTexture(GL_TEXTURE_2D, texture);
-	glTexCoord2f(texcoords[0],texcoords[3]);
+	glBindTexture(GL_TEXTURE_2D, texture[0]);
+	glBegin(GL_QUADS);
+	glTexCoord2f(texcoords[0][0],texcoords[0][3]);
 	glVertex3f(-1,-1,-1);
-	glTexCoord2f(texcoords[2],texcoords[3]);
+	glTexCoord2f(texcoords[0][2],texcoords[0][3]);
 	glVertex3f( 1,-1,-1);
-	glTexCoord2f(texcoords[2],texcoords[1]);
+	glTexCoord2f(texcoords[0][2],texcoords[0][1]);
 	glVertex3f( 1, 1,-1);
-	glTexCoord2f(texcoords[0],texcoords[1]);
+	glTexCoord2f(texcoords[0][0],texcoords[0][1]);
 	glVertex3f(-1, 1,-1);
+	glEnd();
 
 	/* EAST FACE */
-	glBindTexture(GL_TEXTURE_2D, texture);
-	glTexCoord2f(texcoords[0],texcoords[3]);
+	glBindTexture(GL_TEXTURE_2D, texture[1]);
+	glBegin(GL_QUADS);
+	glTexCoord2f(texcoords[1][0],texcoords[1][3]);
 	glVertex3f( 1,-1,-1);
-	glTexCoord2f(texcoords[2],texcoords[3]);
+	glTexCoord2f(texcoords[1][2],texcoords[1][3]);
 	glVertex3f( 1,-1, 1);
-	glTexCoord2f(texcoords[2],texcoords[1]);
+	glTexCoord2f(texcoords[1][2],texcoords[1][1]);
 	glVertex3f( 1, 1, 1);
-	glTexCoord2f(texcoords[0],texcoords[1]);
+	glTexCoord2f(texcoords[1][0],texcoords[1][1]);
 	glVertex3f( 1, 1,-1);
+	glEnd();
 
 	/* SOUTH FACE */
-	glBindTexture(GL_TEXTURE_2D, texture);
-	glTexCoord2f(texcoords[0],texcoords[3]);
+	glBindTexture(GL_TEXTURE_2D, texture[2]);
+	glBegin(GL_QUADS);
+	glTexCoord2f(texcoords[2][0],texcoords[2][3]);
 	glVertex3f( 1,-1, 1);
-	glTexCoord2f(texcoords[2],texcoords[3]);
+	glTexCoord2f(texcoords[2][2],texcoords[2][3]);
 	glVertex3f(-1,-1, 1);
-	glTexCoord2f(texcoords[2],texcoords[1]);
+	glTexCoord2f(texcoords[2][2],texcoords[2][1]);
 	glVertex3f(-1, 1, 1);
-	glTexCoord2f(texcoords[0],texcoords[1]);
+	glTexCoord2f(texcoords[2][0],texcoords[2][1]);
 	glVertex3f( 1, 1, 1);
+	glEnd();
 
 	/* WEST FACE */
-	glBindTexture(GL_TEXTURE_2D, texture);
-	glTexCoord2f(texcoords[0],texcoords[3]);
+	glBindTexture(GL_TEXTURE_2D, texture[3]);
+	glBegin(GL_QUADS);
+	glTexCoord2f(texcoords[3][0],texcoords[3][3]);
 	glVertex3f(-1,-1, 1);
-	glTexCoord2f(texcoords[2],texcoords[3]);
+	glTexCoord2f(texcoords[3][2],texcoords[3][3]);
 	glVertex3f(-1,-1,-1);
-	glTexCoord2f(texcoords[2],texcoords[1]);
+	glTexCoord2f(texcoords[3][2],texcoords[3][1]);
 	glVertex3f(-1, 1,-1);
-	glTexCoord2f(texcoords[0],texcoords[1]);
+	glTexCoord2f(texcoords[3][0],texcoords[3][1]);
 	glVertex3f(-1, 1, 1);
+	glEnd();
 
 	/* UP FACE */
-	glBindTexture(GL_TEXTURE_2D, texture);
-	glTexCoord2f(texcoords[2],texcoords[3]);
+	glBindTexture(GL_TEXTURE_2D, texture[4]);
+	glBegin(GL_QUADS);
+	glTexCoord2f(texcoords[4][2],texcoords[4][3]);
 	glVertex3f( 1, 1,-1);
-	glTexCoord2f(texcoords[0],texcoords[3]);
+	glTexCoord2f(texcoords[4][0],texcoords[4][3]);
 	glVertex3f(-1, 1,-1);
-	glTexCoord2f(texcoords[0],texcoords[1]);
+	glTexCoord2f(texcoords[4][0],texcoords[4][1]);
 	glVertex3f(-1, 1, 1);
-	glTexCoord2f(texcoords[2],texcoords[1]);
+	glTexCoord2f(texcoords[4][2],texcoords[4][1]);
 	glVertex3f( 1, 1, 1);
+	glEnd();
 
 	/* DOWN FACE */
-	glBindTexture(GL_TEXTURE_2D, texture);
-	glTexCoord2f(texcoords[2],texcoords[1]);
+	glBindTexture(GL_TEXTURE_2D, texture[5]);
+	glBegin(GL_QUADS);
+	glTexCoord2f(texcoords[5][2],texcoords[5][1]);
 	glVertex3f( 1,-1,-1);
-	glTexCoord2f(texcoords[0],texcoords[1]);
+	glTexCoord2f(texcoords[5][0],texcoords[5][1]);
 	glVertex3f(-1,-1,-1);
-	glTexCoord2f(texcoords[0],texcoords[3]);
+	glTexCoord2f(texcoords[5][0],texcoords[5][3]);
 	glVertex3f(-1,-1, 1);
-	glTexCoord2f(texcoords[2],texcoords[3]);
+	glTexCoord2f(texcoords[5][2],texcoords[5][3]);
 	glVertex3f( 1,-1, 1);
-	
 	glEnd();
+
 	SDL_GL_SwapBuffers();
 }
 
