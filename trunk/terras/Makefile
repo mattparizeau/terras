@@ -2,7 +2,7 @@
 CC := gcc
 
 #LIBDIRS := -I/usr/include
-LIBS := -lSDL -lGLU -lGL -lSDL_image
+LIBS := -lSDL -lGLU -lGL -lSDL_image -lyaml
 CFLAGS := -Wall -g $(LIBDIRS)
 LDFLAGS := -lm  $(LIBS)
 

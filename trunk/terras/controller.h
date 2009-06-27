@@ -10,10 +10,12 @@ struct GameStatus{
 	const SDL_VideoInfo *videoInfo;
 };
 
-/** Configuration information. 
+/** Configuration information.
  */
 struct GameConfig{
-
+	int width; /**< Screen width */
+	int height; /**< Screen height */
+	int fov; /**< Cube view angle */
 };
 
 /** Controller for the MVC Pattern. */
@@ -25,12 +27,17 @@ class TerraController{
 		void run();
 
 		void setView(TerraView *newView);
+		void setModel(TerraModel *newModel);
+		GameConfig config;
+
 	protected:
 		bool events();
 
+		
 		TerraView *view;
+		TerraModel *model;
 	private:
 		bool key[321];
 		
-		GameConfig config;
+		
 };

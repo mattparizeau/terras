@@ -12,7 +12,6 @@
 
 
 TerraView::TerraView(){
-	info = SDL_GetVideoInfo();
 	xangle = 0; yangle = 0;
 }
 
@@ -22,8 +21,11 @@ void TerraView::init(){
 	if (info->hw_available) {vidFlags |= SDL_HWSURFACE;}
 	else {vidFlags |= SDL_SWSURFACE;}
 	bpp = info->vfmt->BitsPerPixel;
-	
-	window = SDL_SetVideoMode(window_width, window_height, bpp, vidFlags);
+
+	printf("Initializing SDL to %dx%d\n", controller->config.width, 
+		controller->config.height);
+	window = SDL_SetVideoMode(controller->config.width, 
+		controller->config.height, bpp, vidFlags);
 	if(!window){
 		SDL_Quit();
 		exit(1);
@@ -35,10 +37,12 @@ void TerraView::initGL(){
 	loadTextures();
 
 	glEnable(GL_TEXTURE_2D);
-	glViewport( 0, 0, window_width, window_height );
+	glViewport( 0, 0, controller->config.width, controller->config.height );
 	glMatrixMode( GL_PROJECTION );
 	glEnable( GL_DEPTH_TEST );
-	gluPerspective( FOV, (float)window_width/window_height, 0.1, 100 );
+	gluPerspective( controller->config.fov,
+		(float)controller->config.width/controller->config.height, 
+		0.1, 100 );
 	glMatrixMode( GL_MODELVIEW );
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
 	glDisable (GL_LIGHTING);

@@ -9,6 +9,11 @@
 TerraController::TerraController(){
 	/* Initialize arrays */
 	memset(&key,0,321 * sizeof(bool));
+	/* Set configuration to defaults */
+	config.width = 640;
+	config.height = 480;
+	config.fov = 45;
+
 	return;
 }
 
@@ -56,4 +61,8 @@ bool TerraController::events() {
 
 void TerraController::setView(TerraView *newView){
 	view = newView;
+}
+
+void TerraController::setModel(TerraModel *newModel){
+	model = newModel;
 }
