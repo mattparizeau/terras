@@ -1,10 +1,12 @@
 # terras Makefile
 CC := gcc
 
-#LIBDIRS := -I/usr/include
-LIBS := -lSDL -lGLU -lGL -lSDL_image -lyaml
-CFLAGS := -Wall -g $(LIBDIRS)
-LDFLAGS := -lm  $(LIBS)
+
+INCDIRS := -Ilibs/yaml-cpp/include
+LIBDIRS := 
+LIBS := -lm -lSDL -lGLU -lGL -lSDL_image libs/yaml-cpp/libyaml-cpp.a
+CFLAGS := -Wall -g $(INCDIRS)
+LDFLAGS := $(LIBDIRS) $(LIBS)
 
 
 

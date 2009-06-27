@@ -1,0 +1,14 @@
+%YAML 1.1 # Terras configuration file
+---
+title: Terras Engine Test
+
+# Graphics configuration
+width: 1024
+height: 768
+fullscreen: false
+fov: 45
+
+# Game resource files
+nodefiles: ~
+
+

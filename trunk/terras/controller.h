@@ -16,6 +16,7 @@ struct GameConfig{
 	int width; /**< Screen width */
 	int height; /**< Screen height */
 	int fov; /**< Cube view angle */
+	std::string title;
 };
 
 /** Controller for the MVC Pattern. */

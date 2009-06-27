@@ -1,3 +1,5 @@
+#include <fstream>
+#include <iostream>
 
 #include <stdio.h>
 #include <GL/gl.h>
@@ -26,6 +28,9 @@ void TerraView::init(){
 		controller->config.height);
 	window = SDL_SetVideoMode(controller->config.width, 
 		controller->config.height, bpp, vidFlags);
+
+	SDL_WM_SetCaption(controller->config.title.c_str(), NULL);
+
 	if(!window){
 		SDL_Quit();
 		exit(1);

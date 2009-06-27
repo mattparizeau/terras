@@ -2,6 +2,7 @@
  * Main function definition and other useful tidbits.
  * @author Peter Hokanson
  */
+#include <iostream>
 
 #include <GL/gl.h>
 #include <GL/glu.h>
@@ -35,7 +36,7 @@ int main(int argc, char **argv) {
 	controller->setModel(model);
 	model->setController(controller);
 
-	//model->parseConfig();
+	model->parseConfig();
 	view->init();
 	view->initGL();
 	controller->run();
