@@ -1,7 +1,4 @@
 
-class TerraView;
-class TerraModel;
-
 /** Stores the status of the game within the controller.
  */
 struct GameStatus{

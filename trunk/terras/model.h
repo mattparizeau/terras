@@ -1,8 +1,4 @@
 
-class TerraView;
-class TerraController;
-class TerraNode;
-
 class TerraModel{
 	public:
 		TerraModel();

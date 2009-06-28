@@ -1,8 +1,5 @@
 
-/** Orientation for the faces of a cube:
- * North, South, East, West, Up, Down.  Deprecated.
- */
-enum Orient {N=0,E,S,W,U,D};
+
 
 /** Stores filenames for a cubemap. */
 struct cubemap_t{

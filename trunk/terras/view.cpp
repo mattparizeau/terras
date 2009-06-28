@@ -9,6 +9,7 @@
 #include <SDL/SDL_image.h>
 #include <yaml.h>
 
+#include "types.h"
 #include "controller.h"
 #include "node.h"
 #include "view.h"
@@ -66,32 +67,32 @@ void TerraView::loadTextures(){
 	SDL_Surface *image;
 	//glGenTextures(6,texture);
 
-	image=IMG_Load("test/test0.bmp");
+	image=IMG_Load("test/stormy0.jpg");
 	if(!image) printf("IMG_Load: %s\n", IMG_GetError());
 	texture[0] = SDL_GL_LoadTexture(image, texcoords[0]);
 	SDL_FreeSurface(image);
 
-	image=IMG_Load("test/test1.bmp");
+	image=IMG_Load("test/stormy1.jpg");
 	if(!image) printf("IMG_Load: %s\n", IMG_GetError());
 	texture[1] = SDL_GL_LoadTexture(image, texcoords[1]);
 	SDL_FreeSurface(image);
 
-	image=IMG_Load("test/test2.bmp");
+	image=IMG_Load("test/stormy2.jpg");
 	if(!image) printf("IMG_Load: %s\n", IMG_GetError());
 	texture[2] = SDL_GL_LoadTexture(image, texcoords[2]);
 	SDL_FreeSurface(image);
 
-	image=IMG_Load("test/test3.bmp");
+	image=IMG_Load("test/stormy3.jpg");
 	if(!image) printf("IMG_Load: %s\n", IMG_GetError());
 	texture[3] = SDL_GL_LoadTexture(image, texcoords[3]);
 	SDL_FreeSurface(image);
 
-	image=IMG_Load("test/test4.bmp");
+	image=IMG_Load("test/stormy4.jpg");
 	if(!image) printf("IMG_Load: %s\n", IMG_GetError());
 	texture[4] = SDL_GL_LoadTexture(image, texcoords[4]);
 	SDL_FreeSurface(image);
 
-	image=IMG_Load("test/test5.bmp");
+	image=IMG_Load("test/stormy5.jpg");
 	if(!image) printf("IMG_Load: %s\n", IMG_GetError());
 	texture[5] = SDL_GL_LoadTexture(image, texcoords[5]);
 	SDL_FreeSurface(image);

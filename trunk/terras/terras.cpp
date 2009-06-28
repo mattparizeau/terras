@@ -8,6 +8,7 @@
 #include <GL/glu.h>
 #include <SDL/SDL.h>
 
+#include "types.h"
 #include "model.h"
 #include "controller.h"
 #include "view.h"

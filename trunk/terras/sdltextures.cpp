@@ -3,7 +3,6 @@
 #include <GL/glu.h>
 #include <SDL/SDL.h>
 
-#include "view.h"
 #include "sdltextures.h"
 
 /** @file sdltextures.cpp

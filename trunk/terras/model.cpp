@@ -7,7 +7,7 @@
 #include <vector>
 #include <yaml.h>
 
-#include "view.h"
+#include "types.h"
 #include "controller.h"
 #include "model.h"
 #include "node.h"

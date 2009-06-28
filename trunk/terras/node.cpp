@@ -7,7 +7,7 @@
 #include <SDL/SDL_image.h>
 #include <yaml.h>
 
-#include "controller.h"
+#include "types.h"
 #include "view.h"
 #include "model.h"
 #include "node.h"

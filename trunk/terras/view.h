@@ -2,8 +2,6 @@
 #define window_height 120
 #define FOV 45
 
-class TerraController;
-
 class TerraView{
 	public:
 		TerraView();
