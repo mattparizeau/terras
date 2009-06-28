@@ -1,5 +1,6 @@
 #include <fstream>
 #include <iostream>
+#include <vector>
 
 #include <GL/gl.h>
 #include <GL/glu.h>
@@ -16,6 +17,10 @@ TerraController::TerraController(){
 	config.width = 640;
 	config.height = 480;
 	config.fov = 45;
+	config.sensitivity = 1.0;
+	
+	/* Set initial state */
+	state.mouse_free = false;
 
 	return;
 }
@@ -43,7 +48,12 @@ bool TerraController::events() {
 			case SDL_KEYDOWN : key[ event.key.keysym.sym ]=true ;   break;
 			case SDL_KEYUP   : key[ event.key.keysym.sym ]=false;   break;
 			case SDL_MOUSEBUTTONDOWN:
-				//SDL_WM_GrabInput(SDL_GRAB_ON);
+				if(event.button.button == SDL_BUTTON_RIGHT && 
+					event.button.state == SDL_PRESSED){
+					if(state.mouse_free == true){SDL_ShowCursor(SDL_DISABLE);}
+					else{SDL_ShowCursor(SDL_ENABLE);}
+					state.mouse_free = !state.mouse_free;
+				}
 				break;
 			case SDL_QUIT    : return false; break;
 		}
@@ -55,7 +65,9 @@ bool TerraController::events() {
 
 	/* Mouse movement */
 	mouseKeys = SDL_GetRelativeMouseState(&deltax, &deltay);
-	view->adjustAngle((double)deltax,(double)deltay);
+	if(!state.mouse_free){
+		view->adjustAngle((double)deltax,(double)deltay);
+	}
 
 	return true;
 }

@@ -3,7 +3,7 @@
  * @author Peter Hokanson
  */
 #include <iostream>
-
+#include <vector>
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <SDL/SDL.h>
@@ -17,6 +17,7 @@
 bool key[321];
 // Process pending events
 
+/** Entry into the MVC setup. */
 int main(int argc, char **argv) {
 	TerraController *controller = new TerraController();
 	TerraModel *model = new TerraModel();
@@ -41,14 +42,3 @@ int main(int argc, char **argv) {
 	view->initGL();
 	controller->run();
 }
-
-// int main(int argc, char **argv) {
-// 	TerraView *view = new TerraView();
-// 	TerraController *controller = new TerraController();
-// 
-// 	controller->setView(view);
-// 	controller->run();
-// 	
-// 
-// // 	main_loop_function();
-// }

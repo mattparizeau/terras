@@ -1,11 +1,13 @@
 #include <fstream>
 #include <iostream>
+#include <vector>
 
 #include <stdio.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
+#include <yaml.h>
 
 #include "controller.h"
 #include "node.h"
@@ -29,12 +31,15 @@ void TerraView::init(){
 	window = SDL_SetVideoMode(controller->config.width, 
 		controller->config.height, bpp, vidFlags);
 
-	SDL_WM_SetCaption(controller->config.title.c_str(), NULL);
-
 	if(!window){
 		SDL_Quit();
 		exit(1);
 	}
+	
+	SDL_WM_SetCaption(controller->config.title.c_str(), NULL);
+	if(controller->config.fullscreen)
+		printf("Would switch to fullscreen\n");
+		//SDL_WM_ToggleFullScreen(window);
 }
 
 void TerraView::initGL(){
@@ -91,8 +96,8 @@ void TerraView::loadTextures(){
 	texture[5] = SDL_GL_LoadTexture(image, texcoords[5]);
 	SDL_FreeSurface(image);
 
-	printf("OpenGL texture names: %d, %d, %d, %d, %d, %d\n",
-		texture[0],texture[1],texture[2],texture[3],texture[4],texture[5]);
+// 	printf("OpenGL texture names: %d, %d, %d, %d, %d, %d\n",
+// 		texture[0],texture[1],texture[2],texture[3],texture[4],texture[5]);
 }
 
 void TerraView::setController(TerraController *c){
@@ -201,8 +206,8 @@ void TerraView::draw(){
 
 void TerraView::adjustAngle(double x, double y){
 // 	printf("Adjusting angle: %+1.1f, %+1.1f\n",x,y);
-	xangle += x;
-	yangle += y;
+	xangle += x * controller->config.sensitivity;
+	yangle += y * controller->config.sensitivity;
 	// Limits on vertical movement
 	if(yangle >  90) yangle =  90;
 	if(yangle < -90) yangle = -90;

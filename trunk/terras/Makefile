@@ -10,7 +10,7 @@ LDFLAGS := $(LIBDIRS) $(LIBS)
 
 
 
-%.o: %.cpp
+%.o: %.cpp *.h
 	$(CC) -c $(CFLAGS) $< -o $@
 
 all: terras
