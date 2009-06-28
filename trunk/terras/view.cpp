@@ -179,27 +179,27 @@ void TerraView::draw(){
 	/* UP FACE */
 	glBindTexture(GL_TEXTURE_2D, texture[4]);
 	glBegin(GL_QUADS);
-	glTexCoord2f(texcoords[4][2],texcoords[4][3]);
-	glVertex3f( 1, 1,-1);
 	glTexCoord2f(texcoords[4][0],texcoords[4][3]);
 	glVertex3f(-1, 1,-1);
-	glTexCoord2f(texcoords[4][0],texcoords[4][1]);
-	glVertex3f(-1, 1, 1);
+	glTexCoord2f(texcoords[4][2],texcoords[4][3]);
+	glVertex3f( 1, 1,-1);
 	glTexCoord2f(texcoords[4][2],texcoords[4][1]);
 	glVertex3f( 1, 1, 1);
+	glTexCoord2f(texcoords[4][0],texcoords[4][1]);
+	glVertex3f(-1, 1, 1);
 	glEnd();
 
 	/* DOWN FACE */
 	glBindTexture(GL_TEXTURE_2D, texture[5]);
 	glBegin(GL_QUADS);
-	glTexCoord2f(texcoords[5][2],texcoords[5][1]);
-	glVertex3f( 1,-1,-1);
-	glTexCoord2f(texcoords[5][0],texcoords[5][1]);
-	glVertex3f(-1,-1,-1);
 	glTexCoord2f(texcoords[5][0],texcoords[5][3]);
 	glVertex3f(-1,-1, 1);
 	glTexCoord2f(texcoords[5][2],texcoords[5][3]);
 	glVertex3f( 1,-1, 1);
+	glTexCoord2f(texcoords[5][2],texcoords[5][1]);
+	glVertex3f( 1,-1,-1);
+	glTexCoord2f(texcoords[5][0],texcoords[5][1]);
+	glVertex3f(-1,-1,-1);
 	glEnd();
 
 	SDL_GL_SwapBuffers();
