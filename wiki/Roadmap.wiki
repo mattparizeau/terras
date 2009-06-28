@@ -1,5 +1,5 @@
 #summary Short-term and long-term development plans.
-#labels roadmap,Phase-Requirements,Featured
+#labels roadmap,Phase-Requirements
 
 = Required Features =
  * Solid OpenGL cube rendering that should not show gaps in the cube under any circumstances. _Partial_
