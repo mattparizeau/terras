@@ -23,7 +23,6 @@ int main(int argc, char **argv) {
 	TerraController *controller = new TerraController();
 	TerraModel *model = new TerraModel();
 	TerraView *view = new TerraView();
-	
 
 	printf("Starting terras...\n");
 
@@ -39,7 +38,11 @@ int main(int argc, char **argv) {
 	model->setController(controller);
 
 	model->parseConfig();
+	//view->currNode = model->nodes.front();
+
 	view->init();
 	view->initGL();
+
+	controller->setCurrentNode(model->nodes.front());
 	controller->run();
 }

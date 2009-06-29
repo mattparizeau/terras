@@ -12,6 +12,8 @@
 #include "model.h"
 #include "node.h"
 
+
+/** Rather boring constructor */
 TerraModel::TerraModel(){
 
 }
@@ -39,6 +41,7 @@ void TerraModel::parseConfig(const char *fileName){
 	YAML::Parser parser(fin);
 	YAML::Node doc;
 	
+	printf("Parsing config file %s\n", fileName);
 	parser.GetNextDocument(doc);
 	for(YAML::Iterator it=doc.begin();it!=doc.end();++it) {
 		std::string key;
@@ -68,16 +71,24 @@ void TerraModel::parseConfig(const char *fileName){
 void TerraModel::parseNodes(const char *fileName){
 	std::ifstream fin(fileName);
 	YAML::Parser parser(fin);
+	//printf("Parsing nodefile %s\n",fileName);
 	while(parser){
 		YAML::Node doc;
 		parser.GetNextDocument(doc);
 		TerraNode *node = new TerraNode(doc,this);
 		//nodes[node->getId()] = node;
+		//node->ready();
 		nodes.push_back(node);
 	}
 }
 
-
+/** Set controller. */
 void TerraModel::setController(TerraController *newController){
 	controller = newController;
+}
+/** Set current node. This should be expanded to preload the appropriate nodes,
+ * and unload unused nodes.
+ */
+void TerraModel::setCurrentNode(TerraNode *newNode){
+	currNode = newNode;
 }

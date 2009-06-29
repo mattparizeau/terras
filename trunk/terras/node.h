@@ -12,18 +12,21 @@ struct cubemap_t{
  */
 class TerraNode{
 	public:
+		/* Initialization and render state */
 		TerraNode(YAML::Node& doc, TerraModel *model);
 		~TerraNode();
 		void ready();
 		void unready();
 		bool isReady();
 
+		/* Getters and Setters */
 		const std::string getId();
+		cubemap_t *getImagemap();
+		
 	private:
 		std::string id;
-// 		GLuint textures[6];
-// 		GLfloat coords[6][4];
 		cubemap_t imagemap;
+
 		bool _ready;
 };
 

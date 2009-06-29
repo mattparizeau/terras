@@ -1,6 +1,7 @@
 #include <fstream>
 #include <iostream>
 #include <vector>
+#include <yaml.h>
 
 #include <GL/gl.h>
 #include <GL/glu.h>
@@ -9,6 +10,7 @@
 #include "types.h"
 #include "view.h"
 #include "model.h"
+#include "node.h"
 #include "controller.h"
 
 
@@ -64,6 +66,7 @@ bool TerraController::events() {
 	if( key[SDLK_LEFT ] ) {view->adjustAngle(-1, 0);}
 	if( key[SDLK_UP   ] ) {view->adjustAngle( 0,-1);}
 	if( key[SDLK_DOWN ] ) {view->adjustAngle( 0, 1);}
+	if( key[SDLK_q    ] ) return false;
 
 	/* Mouse movement */
 	mouseKeys = SDL_GetRelativeMouseState(&deltax, &deltay);
@@ -82,4 +85,14 @@ void TerraController::setView(TerraView *newView){
 
 void TerraController::setModel(TerraModel *newModel){
 	model = newModel;
+}
+
+void TerraController::setCurrentNode(TerraNode *newNode){
+	/* Ensure that the node is ready to be loaded. */
+	newNode->ready();
+
+	/* Register the node in the correct places */
+	currNode = newNode;
+	view->setCurrentNode(newNode);
+	model->setCurrentNode(newNode);
 }
