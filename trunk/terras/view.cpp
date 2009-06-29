@@ -101,13 +101,13 @@ void TerraView::drawCursor(){
 	
 // 	glBindTexture(GL_TEXTURE_2D,cursor);
 	glBegin(GL_QUADS);
-	glTexCoord2f(cursor_coords[0],cursor_coords[3]);
+// 	glTexCoord2f(cursor_coords[0],cursor_coords[3]);
 	glVertex2i(x,y);
-	glTexCoord2f(cursor_coords[1],cursor_coords[3]);
+// 	glTexCoord2f(cursor_coords[1],cursor_coords[3]);
 	glVertex2i(x+CURSOR_SIZE,y);
-	glTexCoord2f(cursor_coords[1],cursor_coords[2]);
+// 	glTexCoord2f(cursor_coords[1],cursor_coords[2]);
 	glVertex2i(x+CURSOR_SIZE,y-CURSOR_SIZE);
-	glTexCoord2f(cursor_coords[0],cursor_coords[2]);
+// 	glTexCoord2f(cursor_coords[0],cursor_coords[2]);
 	glVertex2i(x, y-CURSOR_SIZE);
 	glEnd();
 }
