@@ -1,0 +1,17 @@
+#summary One-sentence summary of this page.
+#labels Phase-Design
+
+= Introduction =
+
+Currently, Terras attempts to follow a standard Model-View-Controller template.  That said, I am not the most experienced developer with MVC, especially in C++.
+
+
+= Classes =
+== TerraController ==
+The controller handles the actual gameplay mechanics.  Specifically, it handles the SDL event loop.
+
+== TerraView ==
+This class handles view-related functions, such as actually rendering a given TerraNode.  The 
+
+== TerraModel ==
+
