@@ -2,6 +2,8 @@
 
 class TerraView{
 	public:
+		/* Friend classes */
+		friend class TerraCursor;
 		/* Initialization */
 		TerraView();
 		~TerraView();
@@ -12,7 +14,6 @@ class TerraView{
 		void draw();
 		void draw2D();
 		void draw3D();
-		void drawCursor();
 
 		/* External callback handlers */
 		void setCurrentNode(TerraNode *currNode);
@@ -21,11 +22,13 @@ class TerraView{
 
 		/* Getters and Setters */
 		void setController(TerraController *c);
+		TerraCursor *getCursor();
 
 	private:
 		/* Relevant external data structures */
 		TerraController *controller;
 		TerraNode *currNode;
+		TerraCursor *cursor;
 		SDL_Surface *window;
 
 		/* Graphics state information */

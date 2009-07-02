@@ -13,11 +13,17 @@
 #include "controller.h"
 #include "node.h"
 #include "view.h"
+#include "cursor.h"
 #include "sdltextures.h"
 
 /** Set default values for configuration options. */
 TerraView::TerraView(){
 	xangle = 0; yangle = 0;
+	cursor = new TerraCursor(this);
+
+	
+	
+// 	cursor = new TerraCursor();
 }
 
 /** Initialize SDL */
@@ -42,6 +48,9 @@ void TerraView::init(){
 	if(controller->config.fullscreen)
 		//printf("Would switch to fullscreen\n");
 		SDL_WM_ToggleFullScreen(window);
+
+	SDL_WM_GrabInput(SDL_GRAB_ON);
+	SDL_ShowCursor(SDL_DISABLE);
 }
 
 /** Initialize OpenGL */
@@ -65,7 +74,6 @@ void TerraView::initGL(){
 	//glDisable (GL_LIGHTING);
 	glDisable(GL_DEPTH_TEST);
 
-
 	return;
 }
 
@@ -87,37 +95,14 @@ void TerraView::draw(){
 	SDL_GL_SwapBuffers();
 }
 
-/** Draw the cursor on the screen.  This is done in 2D mode.
- * The cursor should get several different modes, so this will obviously 
- * have to expand.
- *
- * This should always be the last 2D drawing function called, so that the
- * cursor is on top.
- */
-void TerraView::drawCursor(){
-	int x,y;
-	SDL_GetMouseState(&x,&y);
-	y = window->h - y;
-	
-// 	glBindTexture(GL_TEXTURE_2D,cursor);
-	glBegin(GL_QUADS);
-// 	glTexCoord2f(cursor_coords[0],cursor_coords[3]);
-	glVertex2i(x,y);
-// 	glTexCoord2f(cursor_coords[1],cursor_coords[3]);
-	glVertex2i(x+CURSOR_SIZE,y);
-// 	glTexCoord2f(cursor_coords[1],cursor_coords[2]);
-	glVertex2i(x+CURSOR_SIZE,y-CURSOR_SIZE);
-// 	glTexCoord2f(cursor_coords[0],cursor_coords[2]);
-	glVertex2i(x, y-CURSOR_SIZE);
-	glEnd();
-}
+
 
 /** Renders 2D things in the event loop.  These are drawn over the 3D images
  * because of the order in which these are called.
  */
 void TerraView::draw2D(){
 	/* Set 2D rendering mode */
-	int vPort[4];
+	int vPort[4], x, y;
 	glGetIntegerv(GL_VIEWPORT, vPort);
 	//printf("vPort: %d,%d\n",vPort[2],vPort[3]);
 
@@ -131,11 +116,15 @@ void TerraView::draw2D(){
 	glLoadIdentity();
 	glColor3f(0,0,0);
 
-	drawCursor();
+	SDL_GetMouseState(&x,&y);
+	y = window->h - y;
+
+	cursor->setCoords(x,y);
+	cursor->draw();
 
 	/* Reset rendering mode */
 	glMatrixMode(GL_PROJECTION);
-	glPopMatrix();   
+	glPopMatrix();
 	glMatrixMode(GL_MODELVIEW);
 	glPopMatrix();
 }
@@ -244,10 +233,16 @@ void TerraView::draw3D(){
 
 void TerraView::adjustAngle(double x, double y){
 // 	printf("Adjusting angle: %+1.1f, %+1.1f\n",x,y);
-	xangle += x * controller->config.sensitivity;
-	yangle += y * controller->config.sensitivity;
-	// Limits on vertical movement
-	if(yangle >  90) yangle =  90;
-	if(yangle < -90) yangle = -90;
-	return;
+	if(cursor->isLocked()){
+		xangle += x * controller->config.sensitivity;
+		yangle += y * controller->config.sensitivity;
+		// Limits on vertical movement
+		if(yangle >  90) yangle =  90;
+		if(yangle < -90) yangle = -90;
+		return;
+	} else return;
+}
+
+TerraCursor *TerraView::getCursor(){
+	return cursor;
 }

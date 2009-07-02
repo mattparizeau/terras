@@ -3,9 +3,9 @@
 title: Terras Engine Test
 
 # Graphics configuration
-width: 1280
+width: 1440
 height: 720
-fullscreen: false
+fullscreen: true
 fov: 45
 sensitivity: 0.2
 

@@ -6,7 +6,6 @@ struct GameStatus{
 	bool paused;
 	const SDL_VideoInfo *videoInfo;
 	bool keys_captured;
-	bool mouse_free;
 };
 
 /** Configuration information.

@@ -11,6 +11,7 @@
 #include "view.h"
 #include "model.h"
 #include "node.h"
+#include "cursor.h"
 #include "controller.h"
 
 
@@ -24,7 +25,7 @@ TerraController::TerraController(){
 	config.sensitivity = 1.0;
 	
 	/* Set initial state */
-	state.mouse_free = false;
+	//state.mouse_free = false;
 
 	return;
 }
@@ -35,7 +36,7 @@ TerraController::TerraController(){
 void TerraController::run() {
 	while( events() ) {
 		view->draw();
-		SDL_Delay(30);
+		//SDL_Delay(30);
 	}
 }
 
@@ -54,9 +55,10 @@ bool TerraController::events() {
 			case SDL_MOUSEBUTTONDOWN:
 				if(event.button.button == SDL_BUTTON_RIGHT && 
 					event.button.state == SDL_PRESSED){
-					if(state.mouse_free == true){SDL_ShowCursor(SDL_DISABLE);}
+					/*if(state.mouse_free == true){SDL_ShowCursor(SDL_DISABLE);}
 					else{SDL_ShowCursor(SDL_ENABLE);}
-					state.mouse_free = !state.mouse_free;
+					state.mouse_free = !state.mouse_free;*/
+					view->getCursor()->toggleLock();
 				}
 				break;
 			case SDL_QUIT    : return false; break;
@@ -70,9 +72,8 @@ bool TerraController::events() {
 
 	/* Mouse movement */
 	mouseKeys = SDL_GetRelativeMouseState(&deltax, &deltay);
-	if(!state.mouse_free){
-		view->adjustAngle((double)deltax,(double)deltay);
-	}
+	view->adjustAngle((double)deltax, (double)deltay);
+
 
 	return true;
 }

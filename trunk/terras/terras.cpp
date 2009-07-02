@@ -37,6 +37,7 @@ int main(int argc, char **argv) {
 	controller->setModel(model);
 	model->setController(controller);
 
+
 	model->parseConfig();
 	//view->currNode = model->nodes.front();
 
