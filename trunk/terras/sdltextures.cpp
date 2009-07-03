@@ -78,8 +78,8 @@ GLuint SDL_GL_LoadTexture(SDL_Surface *surface, GLfloat *texcoord) {
 	glBindTexture(GL_TEXTURE_2D, texture);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	//gluBuild2DMipmaps( GL_TEXTURE_2D, 3, w, h,
-	//										GL_RGBA, GL_UNSIGNED_BYTE, image->pixels );
+// 	gluBuild2DMipmaps( GL_TEXTURE_2D, 3, w, h,
+// 											GL_RGBA, GL_UNSIGNED_BYTE, image->pixels );
 	glTexImage2D(GL_TEXTURE_2D,
 		     0,
 		     GL_RGBA,

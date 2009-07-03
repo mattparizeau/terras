@@ -48,6 +48,7 @@ void TerraCursor::setCoords(int x1,int y1){
 	x = x1; y = y1;
 }
 
+/** Toggle current cursor lock status. */
 bool TerraCursor::toggleLock(){
 	//printf("Toggling cursor lock...\n");
 
@@ -61,6 +62,7 @@ bool TerraCursor::toggleLock(){
 	return lock;
 }
 
+/** Return cursor lock status. */
 bool TerraCursor::isLocked(){
 	return lock;
 }
@@ -75,7 +77,10 @@ bool TerraCursor::isLocked(){
 void TerraCursor::draw(){
 	glBindTexture(GL_TEXTURE_2D,glNames[mode]);
 	glBegin(GL_QUADS);
-	glColor3f(1,1,1);
+	if(lock)
+		glColor4f(1,1,1,0.5);
+	else
+		glColor4f(1,1,1,1);
 	glTexCoord2f(cursor_coords[mode][0],cursor_coords[mode][2]);
 	glVertex2i(x, y-CURSOR_SIZE);
 	glTexCoord2f(cursor_coords[mode][1],cursor_coords[mode][2]);

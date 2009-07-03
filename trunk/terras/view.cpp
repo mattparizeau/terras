@@ -55,11 +55,6 @@ void TerraView::init(){
 
 /** Initialize OpenGL */
 void TerraView::initGL(){
-// 	SDL_Surface *cursorSurf;
-// 	cursorSurf = IMG_Load("data/cursors/fwd.png");
-// 	cursor = SDL_GL_LoadTexture(cursorSurf, cursor_coords);
-// 	SDL_FreeSurface(cursorSurf);
-// 	printf("cursor: %d\n",cursor);
 
 	glEnable(GL_TEXTURE_2D);
 	glViewport( 0, 0, controller->config.width, controller->config.height );
@@ -73,6 +68,8 @@ void TerraView::initGL(){
 	//glEnable( GL_DEPTH_TEST );
 	//glDisable (GL_LIGHTING);
 	glDisable(GL_DEPTH_TEST);
+	glEnable (GL_BLEND); 
+	glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); 
 
 	return;
 }
