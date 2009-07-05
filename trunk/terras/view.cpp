@@ -45,12 +45,13 @@ void TerraView::init(){
 	}
 	
 	SDL_WM_SetCaption(controller->config.title.c_str(), NULL);
-	if(controller->config.fullscreen)
+	if(controller->config.fullscreen){
 		//printf("Would switch to fullscreen\n");
 		SDL_WM_ToggleFullScreen(window);
 
-	SDL_WM_GrabInput(SDL_GRAB_ON);
-	SDL_ShowCursor(SDL_DISABLE);
+		SDL_WM_GrabInput(SDL_GRAB_ON);
+		SDL_ShowCursor(SDL_DISABLE);
+	}
 }
 
 /** Initialize OpenGL */
