@@ -34,6 +34,7 @@ TerraController::TerraController(){
  * @author Peter Hokanson
  */
 void TerraController::run() {
+	currNode->ready();
 	while( events() ) {
 		view->draw();
 		//SDL_Delay(30);

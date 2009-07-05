@@ -66,7 +66,13 @@ void TerraModel::parseConfig(const char *fileName){
 			parseNodes(nodeFileName.c_str());
 		}
 	}
-	std::cout << "Would set current node to " << currNodeId << std::endl;
+	if(currNodeId == ""){
+		currNodeId = "node1";
+	}
+	startNode = nodemap[currNodeId];
+	std::cout << "Setting current node to " << currNodeId << std::endl;
+	//controller->setCurrentNode(nodemap[currNodeId]);
+	//std::cout << "node : " << currNode->getId() << std::endl;
 }
 
 /** Parse a YAML node file.
@@ -79,7 +85,7 @@ void TerraModel::parseNodes(const char *fileName){
 		YAML::Node doc;
 		parser.GetNextDocument(doc);
 		TerraNode *node = new TerraNode(doc,this);
-		//nodes[node->getId()] = node;
+		nodemap[node->getId()] = node;
 		//node->ready();
 		nodes.push_back(node);
 	}
@@ -94,4 +100,9 @@ void TerraModel::setController(TerraController *newController){
  */
 void TerraModel::setCurrentNode(TerraNode *newNode){
 	currNode = newNode;
+}
+
+/** Return the starting node for initialization. */
+TerraNode *TerraModel::getStartNode(){
+	return startNode;
 }

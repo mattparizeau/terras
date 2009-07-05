@@ -4,6 +4,7 @@
  */
 #include <iostream>
 #include <vector>
+#include <map>
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <SDL/SDL.h>
@@ -38,12 +39,15 @@ int main(int argc, char **argv) {
 	model->setController(controller);
 
 
-	model->parseConfig();
+	
 	//view->currNode = model->nodes.front();
+	model->parseConfig();
 
 	view->init();
 	view->initGL();
 
-	controller->setCurrentNode(model->nodes.front());
+	
+
+	controller->setCurrentNode(model->getStartNode());
 	controller->run();
 }

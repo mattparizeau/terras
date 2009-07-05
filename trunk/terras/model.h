@@ -16,6 +16,7 @@ class TerraModel{
 		void setView(TerraView *newView);
 		void setController(TerraController *newController);
 		void setCurrentNode(TerraNode *newNode);
+		TerraNode *getStartNode();
 		/* This should go private at some point in the future */
 		std::vector <TerraNode*> nodes;
 
@@ -24,6 +25,8 @@ class TerraModel{
 		TerraView *view;
 		TerraController *controller;
 		TerraNode *currNode;
+		TerraNode *startNode;
 		/* Local state */
 		std::string currNodeId;
+		std::map <std::string, TerraNode*> nodemap;
 };
