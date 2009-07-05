@@ -43,7 +43,7 @@ TerraNode::TerraNode(YAML::Node& doc, TerraModel *model){
 	}
 
 
-	std::cout << "Created node: " << id << std::endl;
+	//std::cout << "Created node: " << id << std::endl;
 }
 
 /** Free allocated memory from the object's construction. */
@@ -88,6 +88,10 @@ bool TerraNode::isReady(){
 /** Return a pointer to the imagemap structure. */
 cubemap_t *TerraNode::getImagemap(){
 	return &imagemap;
+}
+
+const std::string TerraNode::getId(){
+	return id;
 }
 
 
