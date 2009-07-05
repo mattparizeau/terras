@@ -58,12 +58,15 @@ void TerraModel::parseConfig(const char *fileName){
 			it.second() >> controller->config.fullscreen;
 		if(key == "sensitivity")
 			it.second() >> controller->config.sensitivity;
+		if(key == "current_node")
+			it.second() >> currNodeId;
 		if(key == "nodefile"){
 			std::string nodeFileName;
 			it.second() >> nodeFileName;
 			parseNodes(nodeFileName.c_str());
 		}
 	}
+	std::cout << "Would set current node to " << currNodeId << std::endl;
 }
 
 /** Parse a YAML node file.

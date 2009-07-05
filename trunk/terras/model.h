@@ -24,4 +24,6 @@ class TerraModel{
 		TerraView *view;
 		TerraController *controller;
 		TerraNode *currNode;
+		/* Local state */
+		std::string currNodeId;
 };

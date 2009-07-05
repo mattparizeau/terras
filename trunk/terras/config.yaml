@@ -5,11 +5,12 @@ title: Terras Engine Test
 # Graphics configuration
 width: 1440
 height: 720
-fullscreen: true
+fullscreen: false
 fov: 45
 sensitivity: 0.2
 
 # Game resource files
 nodefile: "test/node.yaml"
+current_node: "node1"
 
 
