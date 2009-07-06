@@ -1,14 +1,16 @@
 
-
+/** The view class in the MVC pattern.  Specifically, this deals with all code
+ * relating to output.  This includes OpenGL, and will eventually include
+ * SDL_mixer music and sound capability.
+ */
 class View{
 	public:
 		/* Friend classes */
 		friend class Cursor;
 		/* Initialization */
-		View();
+		View(Controller *newController, Model *newModel);
 		~View();
-		void init();
-		void initGL();
+		
 
 		/* Rendering functions */
 		void draw();
@@ -18,15 +20,20 @@ class View{
 		/* External callback handlers */
 		void setCurrentNode(Node *currNode);
 		int grabMouse();
-		void adjustAngle(GLdouble x, GLdouble y);
+		void moveCursor(GLdouble x, GLdouble y);
 
 		/* Getters and Setters */
 		void setController(Controller *c);
 		Cursor *getCursor();
 
 	private:
+		/* Initialization functions */
+		void init();
+		void initGL();
+
 		/* Relevant external data structures */
 		Controller *controller;
+		Model *model;
 		Node *currNode;
 		Cursor *cursor;
 		SDL_Surface *window;

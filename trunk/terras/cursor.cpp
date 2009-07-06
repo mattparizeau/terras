@@ -17,20 +17,20 @@
 
 /** Create the cursor object.  This loads appropriate cursor textures. */
 Cursor::Cursor(View *newView){
-	SDL_Surface *img;
 	/* Initialization */
 	mode = CURSOR_POINTER;
 	view = newView;
 	lock = false;
 
 	/* Load textures */
-	img = IMG_Load(FILE_CURSOR_POINTER);
-	if(!img) {
-		printf("CURSOR: Cannot load %s: %s\n",FILE_CURSOR_POINTER, IMG_GetError());
-	}
-	glNames[CURSOR_POINTER] = SDL_GL_LoadTexture(img, cursor_coords[CURSOR_POINTER]);
-	printf("Cursor is %d\n", glNames[CURSOR_POINTER]);
-	SDL_FreeSurface(img);
+// 	img = IMG_Load(FILE_CURSOR_POINTER);
+// 	if(!img) {
+// 		printf("CURSOR: Cannot load %s: %s\n",FILE_CURSOR_POINTER, IMG_GetError());
+// 	}
+	glNames[CURSOR_POINTER] = SDL_GL_LoadTextureFile(FILE_CURSOR_POINTER,
+		cursor_coords[CURSOR_POINTER]);
+// 	printf("Cursor is %d\n", glNames[CURSOR_POINTER]);
+// 	SDL_FreeSurface(img);
 }
 
 /** Delete the cursor object, freeing the associated textures. */
@@ -82,13 +82,19 @@ void Cursor::draw(){
 // 		glColor4f(1,1,1,0.5);
 // 	else
 // 		glColor4f(1,1,1,1);
-	glTexCoord2f(cursor_coords[mode][0],cursor_coords[mode][2]);
-	glVertex2i(x, y-CURSOR_SIZE);
-	glTexCoord2f(cursor_coords[mode][1],cursor_coords[mode][2]);
-	glVertex2i(x+CURSOR_SIZE,y-CURSOR_SIZE);
-	glTexCoord2f(cursor_coords[mode][1],cursor_coords[mode][3]);
-	glVertex2i(x+CURSOR_SIZE,y);
 	glTexCoord2f(cursor_coords[mode][0],cursor_coords[mode][3]);
 	glVertex2i(x,y);
+
+	glTexCoord2f(cursor_coords[mode][1],cursor_coords[mode][3]);
+	glVertex2i(x+CURSOR_SIZE,y);
+
+	glTexCoord2f(cursor_coords[mode][1],cursor_coords[mode][2]);
+	glVertex2i(x+CURSOR_SIZE,y-CURSOR_SIZE);
+
+	glTexCoord2f(cursor_coords[mode][0],cursor_coords[mode][2]);
+	glVertex2i(x, y-CURSOR_SIZE);
+
+
+	
 	glEnd();
 }

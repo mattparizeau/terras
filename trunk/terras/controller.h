@@ -9,6 +9,7 @@ struct GameStatus{
 };
 
 /** Configuration information.
+ * @todo Move this into the model.
  */
 struct GameConfig{
 	int width; /**< Screen width */

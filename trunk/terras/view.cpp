@@ -16,15 +16,30 @@
 #include "cursor.h"
 #include "sdltextures.h"
 
-/** Set default values for configuration options. */
-View::View(){
+/** Set default values for configuration options and initialize the appropriate
+ * SDL systems. */
+View::View(Controller *newController, Model *newModel){
+	controller = newController;
+	model = newModel;
 	xangle = 0; yangle = 0;
 	cursor = NULL;
 
-	
-	
-// 	cursor = new Cursor();
+	if(SDL_Init(SDL_INIT_VIDEO) < 0){
+		fprintf( stderr, "SDL Video initialization failed: %s\n",
+			SDL_GetError() );
+		exit(1);
+	}
+
+	init();
+	initGL();
+	cursor = new Cursor(this);
 }
+
+View::~View(){
+	if(cursor != NULL)
+		delete cursor;
+}
+
 
 /** Initialize SDL */
 void View::init(){
@@ -72,10 +87,10 @@ void View::initGL(){
 	glEnable (GL_BLEND); 
 	glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); 
 
-	cursor = new Cursor(this);
 	return;
 }
 
+/** Set the controller referenced from this view. */
 void View::setController(Controller *c){
 	controller = c;
 }
@@ -85,8 +100,7 @@ void View::setCurrentNode(Node *newNode){
 	currNode = newNode;
 }
 
-/** Renders the view through OpenGL.
- */
+/** Renders the view through OpenGL. */
 void View::draw(){
 	draw3D();
 	draw2D();
@@ -94,14 +108,13 @@ void View::draw(){
 	SDL_GL_SwapBuffers();
 }
 
-
-
 /** Renders 2D things in the event loop.  These are drawn over the 3D images
  * because of the order in which these are called.
  */
 void View::draw2D(){
 	/* Set 2D rendering mode */
 	int vPort[4], x, y;
+
 	glGetIntegerv(GL_VIEWPORT, vPort);
 	//printf("vPort: %d,%d\n",vPort[2],vPort[3]);
 
@@ -230,7 +243,7 @@ void View::draw3D(){
 	glEnd();
 }
 
-void View::adjustAngle(double x, double y){
+void View::moveCursor(double x, double y){
 // 	printf("Adjusting angle: %+1.1f, %+1.1f\n",x,y);
 	if(cursor->isLocked()){
 		xangle += x * controller->config.sensitivity;

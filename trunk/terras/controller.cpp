@@ -37,7 +37,6 @@ void Controller::run() {
 	currNode->ready();
 	while( events() ) {
 		view->draw();
-		//SDL_Delay(30);
 	}
 }
 
@@ -65,15 +64,15 @@ bool Controller::events() {
 			case SDL_QUIT    : return false; break;
 		}
 	}
-	if( key[SDLK_RIGHT] ) {view->adjustAngle( 1, 0);}
-	if( key[SDLK_LEFT ] ) {view->adjustAngle(-1, 0);}
-	if( key[SDLK_UP   ] ) {view->adjustAngle( 0,-1);}
-	if( key[SDLK_DOWN ] ) {view->adjustAngle( 0, 1);}
+	if( key[SDLK_RIGHT] ) {view->moveCursor( 1, 0);}
+	if( key[SDLK_LEFT ] ) {view->moveCursor(-1, 0);}
+	if( key[SDLK_UP   ] ) {view->moveCursor( 0,-1);}
+	if( key[SDLK_DOWN ] ) {view->moveCursor( 0, 1);}
 	if( key[SDLK_q    ] ) return false;
 
 	/* Mouse movement */
 	mouseKeys = SDL_GetRelativeMouseState(&deltax, &deltay);
-	view->adjustAngle((double)deltax, (double)deltay);
+	view->moveCursor((double)deltax, (double)deltay);
 
 
 	return true;

@@ -1,6 +1,6 @@
 
 #define FILE_CURSOR_POINTER "data/cursors/fwd.png"
-#define CURSOR_SIZE 64
+#define CURSOR_SIZE 24
 
 /** Represents the cursor, and is able to handle motion and multiple modes. 
  */

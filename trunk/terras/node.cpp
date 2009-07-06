@@ -56,17 +56,12 @@ Node::~Node(){
  */
 void Node::ready(){
 	int i;
-	SDL_Surface *img;
 
 	if(_ready) return;
 
 	for(i = 0; i < 6; i++){
-		img = IMG_Load(imagemap.filenames[i].c_str());
-		if(!img) {
-			printf("IMG_Load: %s\n", IMG_GetError());
-		}
-		imagemap.glNames[i] = SDL_GL_LoadTexture(img, imagemap.coords[i]);
-		SDL_FreeSurface(img);
+		imagemap.glNames[i] = SDL_GL_LoadTextureFile(imagemap.filenames[i].c_str(),
+			imagemap.coords[i]);
 	}
 	_ready = true;
 	//std::cout << "Node " << id << " ready." << std::endl;

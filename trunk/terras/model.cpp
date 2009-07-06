@@ -12,10 +12,10 @@
 #include "model.h"
 #include "node.h"
 
-
 /** Rather boring constructor */
-Model::Model(){
-
+Model::Model(Controller *newController){
+	controller = newController;
+	parseConfig();
 }
 
 /**

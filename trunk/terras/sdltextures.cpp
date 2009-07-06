@@ -2,6 +2,7 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <SDL/SDL.h>
+#include <SDL/SDL_image.h>
 
 #include "sdltextures.h"
 
@@ -18,6 +19,21 @@ inline int base2(int input) {
 	return value;
 }
 
+/** Load an OpenGL texture from a filename. */
+GLuint SDL_GL_LoadTextureFile(const char *fileName, GLfloat *texcoord) {
+	SDL_Surface *img;
+	GLuint id;
+
+	img = IMG_Load(fileName);
+	if(!img) {
+		printf("SDL_GL_LoadTextureFile: %s\n", IMG_GetError());
+	}
+	id = SDL_GL_LoadTexture(img, texcoord);
+	SDL_FreeSurface(img);
+	return id;
+}
+
+/** Load an OpenGL texture from an SDL surface. */
 GLuint SDL_GL_LoadTexture(SDL_Surface *surface, GLfloat *texcoord) {
 	GLuint texture;
 	int w, h;

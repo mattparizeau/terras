@@ -1,10 +1,13 @@
+
+
+
 /** Model in the MVC pattern.  This represents an abstract node graph, and can
  * create it from external files and such.
  */
 class Model{
 	public:
 		/* Initialization */
-		Model();
+		Model(Controller *newController);
 		~Model();
 
 		/* Parsing functions */
