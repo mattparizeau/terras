@@ -1,3 +1,5 @@
+#include <python2.6/Python.h>
+
 #include <fstream>
 #include <iostream>
 #include <vector>
@@ -6,6 +8,7 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <SDL/SDL.h>
+
 
 #include "types.h"
 #include "view.h"

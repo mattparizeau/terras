@@ -12,6 +12,5 @@ sensitivity: 0.4
 # Game resource files
 nodefile: "data/node.yaml"
 current_node: "node1"
-cursors:
-	pointer: "data/cursors/fwd.png"
+
 

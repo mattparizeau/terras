@@ -9,4 +9,4 @@ imagemaps:
 	- "test/test4.bmp"
 	- "test/test5.bmp"
 hotspots:
-	
+	- {alt: 0, az: 0, size: 60, call: "MyPythonFunction"}

@@ -1,6 +1,6 @@
 #include <fstream>
 #include <iostream>
-
+#include <math.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <SDL/SDL.h>
@@ -13,6 +13,11 @@
 #include "node.h"
 #include "sdltextures.h"
 
+/** Simple square function (not pow). */
+inline double sqr(double x){
+	return x * x;
+}
+
 /** Operator overload to assign a YAML node to a cubemap. */
 void operator >> (const YAML::Node& node, cubemap_t& v){
 	node[0] >> v.filenames[N];
@@ -21,6 +26,16 @@ void operator >> (const YAML::Node& node, cubemap_t& v){
 	node[3] >> v.filenames[W];
 	node[4] >> v.filenames[U];
 	node[5] >> v.filenames[D];
+}
+
+/** Converts YAML node into a hotspot. */
+// {alt: 0, az: 0, size: 60, call: "MyPythonFunction"}
+void operator >> (const YAML::Node &node, hotspot_t &spot){
+	node["call"] >> spot.callback;
+	node["alt"] >> spot.alt;
+	node["az"] >> spot.az;
+	node["size"] >> spot.size;
+	
 }
 
 /** Construct a node from a given YAML stream.
@@ -40,8 +55,15 @@ Node::Node(YAML::Node& doc, Model *model){
 		if(key == "imagemaps"){
 			it.second() >> imagemap; 
 		}
+		if(key == "hotspots"){
+			YAML::Node &list = doc;
+// 			for(unsigned int i = 0; i < list.size();i++){
+// 				hotspot_t spot;
+// 				list[i] >> spot;
+// 				hotspots.push_back(spot);
+// 			}
+		}
 	}
-
 
 	//std::cout << "Created node: " << id << std::endl;
 }
@@ -85,9 +107,23 @@ cubemap_t *Node::getImagemap(){
 	return &imagemap;
 }
 
+/** Get the node's id. */
 const std::string Node::getId(){
 	return id;
 }
 
-
+/** Returns the hotspot under a given angle.  They are considered in the order
+ * in which they are defined. */
+hotspot_t *Node::getHotSpot(GLdouble xangle,GLdouble yangle){
+	for(unsigned int i = 0; i < hotspots.size(); i++){
+		//printf("hotspot %f, %f\n", hotspots[i].alt - yangle, hotspots[i].az - xangle);
+		printf("hotspot: %f, %f\n", sqr(hotspots[i].alt - yangle) + sqr(hotspots[i].az - xangle), sqr(hotspots[i].size));
+		if(sqr(hotspots[i].alt - yangle) + sqr(hotspots[i].az - xangle) < 
+				sqr(hotspots[i].size)){
+			printf("active hotspot %d\n", i);
+			return &hotspots[i];
+		}
+	}
+	return NULL;
+}
 

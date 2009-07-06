@@ -22,10 +22,13 @@ class Node{
 		/* Getters and Setters */
 		const std::string getId();
 		cubemap_t *getImagemap();
+
+		hotspot_t *getHotSpot(GLdouble xangle,GLdouble yangle);
 		
 	private:
 		std::string id;
 		cubemap_t imagemap;
+		std::vector <hotspot_t> hotspots;
 
 		bool _ready;
 };

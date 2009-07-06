@@ -13,7 +13,10 @@
 #include "controller.h"
 #include "view.h"
 #include "cursor.h"
+#include "node.h"
 #include "sdltextures.h"
+
+
 
 /** Create the cursor object.  This loads appropriate cursor textures. */
 Cursor::Cursor(View *newView){
@@ -78,10 +81,16 @@ bool Cursor::isLocked(){
 void Cursor::draw(){
 	glBindTexture(GL_TEXTURE_2D,glNames[mode]);
 	glBegin(GL_QUADS);
+
+	if(view->currNode->getHotSpot(view->xangle, view->yangle) != NULL)
+		glColor4f(0,1,0,1);
+	else
+		glColor4f(1,1,1,1);
 // 	if(lock)
 // 		glColor4f(1,1,1,0.5);
 // 	else
 // 		glColor4f(1,1,1,1);
+
 	glTexCoord2f(cursor_coords[mode][0],cursor_coords[mode][3]);
 	glVertex2i(x,y);
 

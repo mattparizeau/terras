@@ -37,6 +37,7 @@ class View{
 		Node *currNode;
 		Cursor *cursor;
 		SDL_Surface *window;
+		hotspot_t *currSpot;
 
 		/* Graphics state information */
 		GLdouble xangle, yangle;

@@ -1,5 +1,12 @@
 
 
+/** Stores hotspots and associated callbacks. */
+struct hotspot_t{
+// Example: {alt: 23, az: 40, size: 15, call: "MyPythonFunction"} 
+	std::string callback;
+	GLdouble alt, az, size;
+};
+
 /** Orientation for the faces of a cube:
  * North, South, East, West, Up, Down.  Deprecated.
  */
