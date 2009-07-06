@@ -14,10 +14,10 @@ enum cursor_mode_t {
 #define NUM_CURSORS 2
 
 /* Class definitions for later */
-class TerraController;
-class TerraModel;
-class TerraView;
-class TerraNode;
-class TerraCursor;
+class Controller;
+class Model;
+class View;
+class Node;
+class Cursor;
 
 

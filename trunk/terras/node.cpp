@@ -26,7 +26,7 @@ void operator >> (const YAML::Node& node, cubemap_t& v){
 /** Construct a node from a given YAML stream.
  *
  */
-TerraNode::TerraNode(YAML::Node& doc, TerraModel *model){
+Node::Node(YAML::Node& doc, Model *model){
 	/* Initialize local variables */
 	_ready = false;
 
@@ -47,14 +47,14 @@ TerraNode::TerraNode(YAML::Node& doc, TerraModel *model){
 }
 
 /** Free allocated memory from the object's construction. */
-TerraNode::~TerraNode(){
+Node::~Node(){
 	//int i;
 	unready();
 }
 
 /** Load image files and otherwise make this node ready to display. 
  */
-void TerraNode::ready(){
+void Node::ready(){
 	int i;
 	SDL_Surface *img;
 
@@ -73,7 +73,7 @@ void TerraNode::ready(){
 }
 
 /** Unload image files from GPU memory */
-void TerraNode::unready(){
+void Node::unready(){
 	if(!_ready) return;
 	glDeleteTextures(6,imagemap.glNames);
 	
@@ -81,16 +81,16 @@ void TerraNode::unready(){
 }
 
 /** Return true if this node is ready, false otherwise. */
-bool TerraNode::isReady(){
+bool Node::isReady(){
 	return _ready;
 }
 
 /** Return a pointer to the imagemap structure. */
-cubemap_t *TerraNode::getImagemap(){
+cubemap_t *Node::getImagemap(){
 	return &imagemap;
 }
 
-const std::string TerraNode::getId(){
+const std::string Node::getId(){
 	return id;
 }
 

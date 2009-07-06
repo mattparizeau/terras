@@ -16,7 +16,7 @@
 #include "sdltextures.h"
 
 /** Create the cursor object.  This loads appropriate cursor textures. */
-TerraCursor::TerraCursor(TerraView *newView){
+Cursor::Cursor(View *newView){
 	SDL_Surface *img;
 	/* Initialization */
 	mode = CURSOR_POINTER;
@@ -29,16 +29,17 @@ TerraCursor::TerraCursor(TerraView *newView){
 		printf("CURSOR: Cannot load %s: %s\n",FILE_CURSOR_POINTER, IMG_GetError());
 	}
 	glNames[CURSOR_POINTER] = SDL_GL_LoadTexture(img, cursor_coords[CURSOR_POINTER]);
+	printf("Cursor is %d\n", glNames[CURSOR_POINTER]);
 	SDL_FreeSurface(img);
 }
 
 /** Delete the cursor object, freeing the associated textures. */
-TerraCursor::~TerraCursor(){
+Cursor::~Cursor(){
 	glDeleteTextures(NUM_CURSORS, glNames);
 }
 
 /** Set the location of the cursor. */
-void TerraCursor::setCoords(int x1,int y1){
+void Cursor::setCoords(int x1,int y1){
 	if(lock){
 		x = view->window->w / 2;
 		y = view->window->h / 2;
@@ -49,7 +50,7 @@ void TerraCursor::setCoords(int x1,int y1){
 }
 
 /** Toggle current cursor lock status. */
-bool TerraCursor::toggleLock(){
+bool Cursor::toggleLock(){
 	//printf("Toggling cursor lock...\n");
 
 	x = view->window->w / 2;
@@ -63,7 +64,7 @@ bool TerraCursor::toggleLock(){
 }
 
 /** Return cursor lock status. */
-bool TerraCursor::isLocked(){
+bool Cursor::isLocked(){
 	return lock;
 }
 
@@ -74,13 +75,13 @@ bool TerraCursor::isLocked(){
  * This should always be the last 2D drawing function called, so that the
  * cursor is on top.
  */
-void TerraCursor::draw(){
+void Cursor::draw(){
 	glBindTexture(GL_TEXTURE_2D,glNames[mode]);
 	glBegin(GL_QUADS);
-	if(lock)
-		glColor4f(1,1,1,0.5);
-	else
-		glColor4f(1,1,1,1);
+// 	if(lock)
+// 		glColor4f(1,1,1,0.5);
+// 	else
+// 		glColor4f(1,1,1,1);
 	glTexCoord2f(cursor_coords[mode][0],cursor_coords[mode][2]);
 	glVertex2i(x, y-CURSOR_SIZE);
 	glTexCoord2f(cursor_coords[mode][1],cursor_coords[mode][2]);

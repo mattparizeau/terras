@@ -7,10 +7,11 @@ width: 1440
 height: 720
 fullscreen: false
 fov: 45
-sensitivity: 0.2
+sensitivity: 0.4
 
 # Game resource files
-nodefile: "test/node.yaml"
+nodefile: "data/node.yaml"
 current_node: "node1"
-
+cursors:
+	pointer: "data/cursors/fwd.png"
 

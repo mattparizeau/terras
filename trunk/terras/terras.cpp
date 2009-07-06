@@ -21,9 +21,9 @@ bool key[321];
 
 /** Entry into the MVC setup. */
 int main(int argc, char **argv) {
-	TerraController *controller = new TerraController();
-	TerraModel *model = new TerraModel();
-	TerraView *view = new TerraView();
+	Controller *controller = new Controller();
+	Model *model = new Model();
+	View *view = new View();
 
 	printf("Starting terras...\n");
 
@@ -45,8 +45,6 @@ int main(int argc, char **argv) {
 
 	view->init();
 	view->initGL();
-
-	
 
 	controller->setCurrentNode(model->getStartNode());
 	controller->run();

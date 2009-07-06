@@ -14,7 +14,7 @@
 
 
 /** Rather boring constructor */
-TerraModel::TerraModel(){
+Model::Model(){
 
 }
 
@@ -22,12 +22,12 @@ TerraModel::TerraModel(){
  * This actually needs to be expanded in the near future to remove nodes from
  * our graph.
  */
-TerraModel::~TerraModel(){
+Model::~Model(){
 
 }
 
 /** We have a default configuration file. */
-void TerraModel::parseConfig(){
+void Model::parseConfig(){
 	parseConfig("config.yaml");
 }
 
@@ -36,7 +36,7 @@ void TerraModel::parseConfig(){
  * @author Peter Hokanson
  * @author LibYAML
  */
-void TerraModel::parseConfig(const char *fileName){
+void Model::parseConfig(const char *fileName){
 	std::ifstream fin(fileName);
 	YAML::Parser parser(fin);
 	YAML::Node doc;
@@ -77,14 +77,14 @@ void TerraModel::parseConfig(const char *fileName){
 
 /** Parse a YAML node file.
  */
-void TerraModel::parseNodes(const char *fileName){
+void Model::parseNodes(const char *fileName){
 	std::ifstream fin(fileName);
 	YAML::Parser parser(fin);
 	//printf("Parsing nodefile %s\n",fileName);
 	while(parser){
 		YAML::Node doc;
 		parser.GetNextDocument(doc);
-		TerraNode *node = new TerraNode(doc,this);
+		Node *node = new Node(doc,this);
 		nodemap[node->getId()] = node;
 		//node->ready();
 		nodes.push_back(node);
@@ -92,17 +92,17 @@ void TerraModel::parseNodes(const char *fileName){
 }
 
 /** Set controller. */
-void TerraModel::setController(TerraController *newController){
+void Model::setController(Controller *newController){
 	controller = newController;
 }
 /** Set current node. This should be expanded to preload the appropriate nodes,
  * and unload unused nodes.
  */
-void TerraModel::setCurrentNode(TerraNode *newNode){
+void Model::setCurrentNode(Node *newNode){
 	currNode = newNode;
 }
 
 /** Return the starting node for initialization. */
-TerraNode *TerraModel::getStartNode(){
+Node *Model::getStartNode(){
 	return startNode;
 }

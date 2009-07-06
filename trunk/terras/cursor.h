@@ -1,12 +1,13 @@
 
 #define FILE_CURSOR_POINTER "data/cursors/fwd.png"
+#define CURSOR_SIZE 64
 
 /** Represents the cursor, and is able to handle motion and multiple modes. 
  */
-class TerraCursor{
+class Cursor{
 	public:
-		TerraCursor(TerraView *newView);
-		~TerraCursor();
+		Cursor(View *newView);
+		~Cursor();
 		
 		void setMode(cursor_mode_t newMode);
 		void setCoords(int x1,int y1);
@@ -14,7 +15,7 @@ class TerraCursor{
 		bool toggleLock();
 		bool isLocked();
 	private:
-		TerraView *view;
+		View *view;
 
 		int x,y;
 		bool lock;

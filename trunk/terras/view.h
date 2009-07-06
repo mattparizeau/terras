@@ -1,12 +1,12 @@
-#define CURSOR_SIZE 17
 
-class TerraView{
+
+class View{
 	public:
 		/* Friend classes */
-		friend class TerraCursor;
+		friend class Cursor;
 		/* Initialization */
-		TerraView();
-		~TerraView();
+		View();
+		~View();
 		void init();
 		void initGL();
 
@@ -16,19 +16,19 @@ class TerraView{
 		void draw3D();
 
 		/* External callback handlers */
-		void setCurrentNode(TerraNode *currNode);
+		void setCurrentNode(Node *currNode);
 		int grabMouse();
 		void adjustAngle(GLdouble x, GLdouble y);
 
 		/* Getters and Setters */
-		void setController(TerraController *c);
-		TerraCursor *getCursor();
+		void setController(Controller *c);
+		Cursor *getCursor();
 
 	private:
 		/* Relevant external data structures */
-		TerraController *controller;
-		TerraNode *currNode;
-		TerraCursor *cursor;
+		Controller *controller;
+		Node *currNode;
+		Cursor *cursor;
 		SDL_Surface *window;
 
 		/* Graphics state information */

@@ -10,11 +10,11 @@ struct cubemap_t{
 
 /** A node in the game, which represents a possible position of the player.
  */
-class TerraNode{
+class Node{
 	public:
 		/* Initialization and render state */
-		TerraNode(YAML::Node& doc, TerraModel *model);
-		~TerraNode();
+		Node(YAML::Node& doc, Model *model);
+		~Node();
 		void ready();
 		void unready();
 		bool isReady();

@@ -15,7 +15,7 @@
 #include "controller.h"
 
 
-TerraController::TerraController(){
+Controller::Controller(){
 	/* Initialize arrays */
 	memset(&key,0,321 * sizeof(bool));
 	/* Set configuration to defaults */
@@ -33,7 +33,7 @@ TerraController::TerraController(){
 /** Start the main event loop.
  * @author Peter Hokanson
  */
-void TerraController::run() {
+void Controller::run() {
 	currNode->ready();
 	while( events() ) {
 		view->draw();
@@ -44,7 +44,7 @@ void TerraController::run() {
 /** Process SDL events.  This should probably change to a 
  * @author Peter Hokanson
  */
-bool TerraController::events() {
+bool Controller::events() {
 	int deltax,deltay;
 	SDL_Event event;
 	Uint8 mouseKeys;
@@ -81,15 +81,15 @@ bool TerraController::events() {
 
 // GET / SET FUNCTIONS
 
-void TerraController::setView(TerraView *newView){
+void Controller::setView(View *newView){
 	view = newView;
 }
 
-void TerraController::setModel(TerraModel *newModel){
+void Controller::setModel(Model *newModel){
 	model = newModel;
 }
 
-void TerraController::setCurrentNode(TerraNode *newNode){
+void Controller::setCurrentNode(Node *newNode){
 	/* Ensure that the node is ready to be loaded. */
 	newNode->ready();
 

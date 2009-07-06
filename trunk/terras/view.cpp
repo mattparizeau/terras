@@ -17,17 +17,17 @@
 #include "sdltextures.h"
 
 /** Set default values for configuration options. */
-TerraView::TerraView(){
+View::View(){
 	xangle = 0; yangle = 0;
-	cursor = new TerraCursor(this);
+	cursor = NULL;
 
 	
 	
-// 	cursor = new TerraCursor();
+// 	cursor = new Cursor();
 }
 
 /** Initialize SDL */
-void TerraView::init(){
+void View::init(){
 	info = SDL_GetVideoInfo();	
 	vidFlags = SDL_OPENGL | SDL_GL_DOUBLEBUFFER;
 	if (info->hw_available) {vidFlags |= SDL_HWSURFACE;}
@@ -55,7 +55,7 @@ void TerraView::init(){
 }
 
 /** Initialize OpenGL */
-void TerraView::initGL(){
+void View::initGL(){
 
 	glEnable(GL_TEXTURE_2D);
 	glViewport( 0, 0, controller->config.width, controller->config.height );
@@ -72,21 +72,22 @@ void TerraView::initGL(){
 	glEnable (GL_BLEND); 
 	glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); 
 
+	cursor = new Cursor(this);
 	return;
 }
 
-void TerraView::setController(TerraController *c){
+void View::setController(Controller *c){
 	controller = c;
 }
 
 /** Set current node. */
-void TerraView::setCurrentNode(TerraNode *newNode){
+void View::setCurrentNode(Node *newNode){
 	currNode = newNode;
 }
 
 /** Renders the view through OpenGL.
  */
-void TerraView::draw(){
+void View::draw(){
 	draw3D();
 	draw2D();
 
@@ -98,7 +99,7 @@ void TerraView::draw(){
 /** Renders 2D things in the event loop.  These are drawn over the 3D images
  * because of the order in which these are called.
  */
-void TerraView::draw2D(){
+void View::draw2D(){
 	/* Set 2D rendering mode */
 	int vPort[4], x, y;
 	glGetIntegerv(GL_VIEWPORT, vPort);
@@ -112,7 +113,7 @@ void TerraView::draw2D(){
 	glMatrixMode(GL_MODELVIEW);
 	glPushMatrix();
 	glLoadIdentity();
-	glColor3f(0,0,0);
+	//glColor3f(0,0,0);
 
 	SDL_GetMouseState(&x,&y);
 	y = window->h - y;
@@ -137,7 +138,7 @@ void TerraView::draw2D(){
  * - Up is +y
  * - Down is -y
  */
-void TerraView::draw3D(){
+void View::draw3D(){
 	/* Shortcut */
 	cubemap_t *im = currNode->getImagemap();
 
@@ -229,7 +230,7 @@ void TerraView::draw3D(){
 	glEnd();
 }
 
-void TerraView::adjustAngle(double x, double y){
+void View::adjustAngle(double x, double y){
 // 	printf("Adjusting angle: %+1.1f, %+1.1f\n",x,y);
 	if(cursor->isLocked()){
 		xangle += x * controller->config.sensitivity;
@@ -241,6 +242,6 @@ void TerraView::adjustAngle(double x, double y){
 	} else return;
 }
 
-TerraCursor *TerraView::getCursor(){
+Cursor *View::getCursor(){
 	return cursor;
 }

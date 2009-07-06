@@ -20,18 +20,18 @@ struct GameConfig{
 };
 
 /** Controller for the MVC Pattern. */
-class TerraController{
+class Controller{
 	public:
 		/* Initialization */
-		TerraController();
-		~TerraController();
+		Controller();
+		~Controller();
 		/* Main loop */
 		void run();
 
 		/* Setters */
-		void setView(TerraView *newView);
-		void setModel(TerraModel *newModel);
-		void setCurrentNode(TerraNode *newNode);
+		void setView(View *newView);
+		void setModel(Model *newModel);
+		void setCurrentNode(Node *newNode);
 
 		/* Public state information */
 		GameConfig config;
@@ -39,9 +39,9 @@ class TerraController{
 	protected:
 		bool events();
 
-		TerraView *view;
-		TerraModel *model;
-		TerraNode *currNode;
+		View *view;
+		Model *model;
+		Node *currNode;
 	private:
 		bool key[321];
 };
