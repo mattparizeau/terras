@@ -1,6 +1,7 @@
 #include <fstream>
 #include <iostream>
 #include <vector>
+#include <math.h>
 
 #include <stdio.h>
 #include <GL/gl.h>
@@ -251,6 +252,8 @@ void View::moveCursor(double x, double y){
 		// Limits on vertical movement
 		if(yangle >  90) yangle =  90;
 		if(yangle < -90) yangle = -90;
+		// Limit on horizontal moment, so that it's continuous.
+		if(fabs(xangle) > 180.0) xangle = fmod(xangle,360.0);
 		return;
 	} else return;
 }
