@@ -31,11 +31,16 @@ void operator >> (const YAML::Node& node, cubemap_t& v){
 /** Converts YAML node into a hotspot. */
 // {alt: 0, az: 0, size: 60, call: "MyPythonFunction"}
 void operator >> (const YAML::Node &node, hotspot_t &spot){
+	std::string type;
 	node["call"] >> spot.callback;
 	node["alt"] >> spot.alt;
 	node["az"] >> spot.az;
 	node["size"] >> spot.size;
-	
+	node["type"] >> type;
+	if(type == "call") 
+		spot.type = HOTSPOT_CALLBACK;
+	else if(type == "node")
+		spot.type = HOTSPOT_NODE;
 }
 
 /** Construct a node from a given YAML stream.
@@ -56,12 +61,14 @@ Node::Node(YAML::Node& doc, Model *model){
 			it.second() >> imagemap; 
 		}
 		if(key == "hotspots"){
-			YAML::Node &list = doc;
-// 			for(unsigned int i = 0; i < list.size();i++){
-// 				hotspot_t spot;
-// 				list[i] >> spot;
-// 				hotspots.push_back(spot);
-// 			}
+			const YAML::Node &list = it.second();
+			std::cout << "Number of spots: " << list.size() << std::endl;
+			for(unsigned int i = 0; i < list.size();i++){
+				hotspot_t spot;
+				list[i] >> spot;
+				hotspots.push_back(spot);
+				//std::cout << "spot added" << std::endl;
+			}
 		}
 	}
 
@@ -116,11 +123,10 @@ const std::string Node::getId(){
  * in which they are defined. */
 hotspot_t *Node::getHotSpot(GLdouble xangle,GLdouble yangle){
 	for(unsigned int i = 0; i < hotspots.size(); i++){
-		//printf("hotspot %f, %f\n", hotspots[i].alt - yangle, hotspots[i].az - xangle);
-		printf("hotspot: %f, %f\n", sqr(hotspots[i].alt - yangle) + sqr(hotspots[i].az - xangle), sqr(hotspots[i].size));
+		//printf("hotspot: %f, %f\n", sqr(hotspots[i].alt - yangle) + sqr(hotspots[i].az - xangle), sqr(hotspots[i].size));
 		if(sqr(hotspots[i].alt - yangle) + sqr(hotspots[i].az - xangle) < 
 				sqr(hotspots[i].size)){
-			printf("active hotspot %d\n", i);
+			//printf("active hotspot %d\n", i);
 			return &hotspots[i];
 		}
 	}

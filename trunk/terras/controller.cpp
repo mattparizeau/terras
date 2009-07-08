@@ -18,7 +18,7 @@
 #include "controller.h"
 
 
-Controller::Controller(){
+Controller::Controller(char* argv0){
 	/* Initialize arrays */
 	memset(&key,0,321 * sizeof(bool));
 	/* Set configuration to defaults */
@@ -27,6 +27,12 @@ Controller::Controller(){
 	config.fov = 45;
 	config.sensitivity = 1.0;
 	
+
+	/* Setup Python */
+	printf("Initializing Python...\n");
+	Py_SetProgramName(argv0);
+	Py_Initialize();
+
 	/* Set initial state */
 	//state.mouse_free = false;
 
@@ -67,15 +73,15 @@ bool Controller::events() {
 			case SDL_QUIT    : return false; break;
 		}
 	}
-	if( key[SDLK_RIGHT] ) {view->moveCursor( 1, 0);}
-	if( key[SDLK_LEFT ] ) {view->moveCursor(-1, 0);}
-	if( key[SDLK_UP   ] ) {view->moveCursor( 0,-1);}
-	if( key[SDLK_DOWN ] ) {view->moveCursor( 0, 1);}
+	if( key[SDLK_RIGHT] ) {view->changeAngle( 1, 0);}
+	if( key[SDLK_LEFT ] ) {view->changeAngle(-1, 0);}
+	if( key[SDLK_UP   ] ) {view->changeAngle( 0,-1);}
+	if( key[SDLK_DOWN ] ) {view->changeAngle( 0, 1);}
 	if( key[SDLK_q    ] ) return false;
 
 	/* Mouse movement */
 	mouseKeys = SDL_GetRelativeMouseState(&deltax, &deltay);
-	view->moveCursor((double)deltax, (double)deltay);
+	view->changeAngle((double)deltax, (double)deltay);
 
 
 	return true;

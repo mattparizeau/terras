@@ -244,7 +244,8 @@ void View::draw3D(){
 	glEnd();
 }
 
-void View::moveCursor(double x, double y){
+/** Move the view angle.  This takes into account constraints on movement. */
+void View::changeAngle(double x, double y){
 // 	printf("Adjusting angle: %+1.1f, %+1.1f\n",x,y);
 	if(cursor->isLocked()){
 		xangle += x * controller->config.sensitivity;
@@ -252,12 +253,13 @@ void View::moveCursor(double x, double y){
 		// Limits on vertical movement
 		if(yangle >  90) yangle =  90;
 		if(yangle < -90) yangle = -90;
-		// Limit on horizontal moment, so that it's continuous.
-		if(fabs(xangle) > 180.0) xangle = fmod(xangle,360.0);
+		// Limit on horizontal moment, so that it's continuous 0 - 360.
+		if(fabs(xangle - 180) > 180.0) xangle = fmod(xangle,360.0);
 		return;
 	} else return;
 }
 
+/** Get the cursor object for this view. */
 Cursor *View::getCursor(){
 	return cursor;
 }

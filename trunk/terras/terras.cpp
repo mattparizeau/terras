@@ -21,11 +21,13 @@ bool key[321];
 
 /** Entry into the MVC setup. */
 int main(int argc, char **argv) {
-	Controller *controller = new Controller();
+	printf("Starting terras...\n");
+
+	Controller *controller = new Controller(argv[0]);
 	Model *model = new Model(controller);
 	View *view = new View(controller, model);
 
-	printf("Starting terras...\n");
+	
 	/* Initialize Controller */
 	controller->setView(view);
 	controller->setModel(model);

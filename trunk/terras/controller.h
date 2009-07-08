@@ -24,7 +24,7 @@ struct GameConfig{
 class Controller{
 	public:
 		/* Initialization */
-		Controller();
+		Controller(char* argv0);
 		~Controller();
 		/* Main loop */
 		void run();

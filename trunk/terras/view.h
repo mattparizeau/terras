@@ -20,7 +20,7 @@ class View{
 		/* External callback handlers */
 		void setCurrentNode(Node *currNode);
 		int grabMouse();
-		void moveCursor(GLdouble x, GLdouble y);
+		void changeAngle(GLdouble x, GLdouble y);
 
 		/* Getters and Setters */
 		void setController(Controller *c);
