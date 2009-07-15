@@ -1,0 +1,21 @@
+%YAML 1.1
+---
+id: "node1"
+imagemaps: 
+ - "test/test0.bmp"
+ - "test/test1.bmp"
+ - "test/test2.bmp"
+ - "test/test3.bmp"
+ - "test/test4.bmp"
+ - "test/test5.bmp"
+hotspots:
+ - alt: 0
+   az: 180
+   size: 30
+   type: "call"
+   call: "MyPythonFunction"
+#  - alt: 15
+#    az: 25
+#    size:20
+#    call: "hello"
+
