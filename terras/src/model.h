@@ -12,7 +12,7 @@ class Model{
 		Model(char *argv0, char *fileName);
 		~Model();
 	private:
-		PyObject globals, locals;
+		PyObject *globals, *locals;
 };
 
 
