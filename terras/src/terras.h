@@ -5,7 +5,8 @@
 
 #ifndef __TERRAS_H__
 #define __TERRAS_H__
-#else
 
+/* Class predefinitions */
+class Model;
 
 #endif
