@@ -6,6 +6,15 @@
 #ifndef __TERRAS_H__
 #define __TERRAS_H__
 
+// Common libraries assumed to be present in other files
+#include <boost/python/detail/wrap_python.hpp>
+#include <boost/python.hpp>
+
+#include <iostream>
+#include <stdio.h>
+#include <vector>
+#include <map>
+
 #define DEBUG 
 // #ifndef DEBUG
 // #define DEBUG 0
@@ -14,5 +23,8 @@
 class Model;
 class Node;
 class CubeNode;
+
+extern Model *model;
+extern Node *currNode;
 
 #endif

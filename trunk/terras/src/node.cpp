@@ -1,9 +1,7 @@
-#include <boost/python.hpp>
-#include <iostream>
-#include <stdio.h>
-
 #include "terras.h"
+#include "model.h"
 #include "node.h"
+
 
 /** Create a generic node */
 Node::Node(std::string nodeId){
@@ -45,6 +43,16 @@ void Node::unready(){
 	if(refCount < 0) refCount = 0;
 }
 
+/** Return the string ID for this node. */
 std::string Node::getId(){
 	return id;
 }
+
+using namespace boost::python;
+
+BOOST_PYTHON_MODULE(terras){
+	class_<Node>("Node", init<std::string>())
+		.def("getId", &Node::getId)
+	;
+}
+

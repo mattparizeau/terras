@@ -5,7 +5,7 @@
 
 #ifndef __MODEL_H__
 #define __MODEL_H__
-#include <Python.h>
+#include <boost/python/detail/wrap_python.hpp>
 
 /** The Model in our pattern, which in this case uses Python bindings to
  * handle node creation, game logic, and other such things.

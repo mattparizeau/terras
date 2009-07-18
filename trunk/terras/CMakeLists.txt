@@ -2,8 +2,8 @@
 cmake_minimum_required (VERSION 2.6)
 project (terras)
 
-SET(CMAKE_VERBOSE_MAKEFILE ON)
-SET(DEBUG ON)
+#SET(CMAKE_VERBOSE_MAKEFILE ON)
+#SET(DEBUG ON)
 
 if(CMAKE_COMPILER_IS_GNUCC)
 	set(CMAKE_CXX_FLAGS "-g -pg -Wall -pedantic -Wextra -Wno-long-long")
@@ -20,8 +20,10 @@ set(TERRAS_VERSION "${TERRAS_VERSION_MAJOR}.${TERRAS_VERSION_MINOR}.${TERRAS_VER
 FILE(GLOB public_headers include/*.h)
 FILE(GLOB private_headers src/*.h)
 FILE(GLOB sources src/*.cpp)
+SET(pythonSources src/node.cpp src/model.cpp)
 
 ADD_EXECUTABLE (terras ${sources})
+#ADD_LIBRARY (pyterras ${pythonSources})
 
 # Packages we link to
 FIND_PACKAGE(PythonInterp)
@@ -31,8 +33,7 @@ FIND_PACKAGE(SDL)
 
 INCLUDE_DIRECTORIES(${PYTHON_INCLUDE_PATH} ${BOOST_INCLUDE_PATH} ${SDL_INCLUDE_PATH})
 LINK_DIRECTORIES (${PYTHON_LIB_PATH} ${BOOST_LIB_PATH} ${SDL_LIB_PATH}) 
-#INCLUDE_DIRECTORIES("/usr/local/include")
-#ADD_LIBRARY(terras python)
 
 # Link the executable to the Hello library.
 target_link_libraries (terras python2.6 boost_python) 
+#target_link_libraries (pyterras python2.6 boost_python) 

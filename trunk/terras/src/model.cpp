@@ -1,9 +1,6 @@
-#include <Python.h>
-#include <boost/python.hpp>
-#include <stdio.h>
-
 #include "terras.h"
 #include "model.h"
+#include "node.h"
 
 /** Create a model with the given executable name. */
 Model::Model(char *argv0, const char *fileName){
