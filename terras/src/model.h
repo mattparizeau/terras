@@ -7,12 +7,16 @@
 #define __MODEL_H__
 #include <Python.h>
 
+/** The Model in our pattern, which in this case uses Python bindings to
+ * handle node creation, game logic, and other such things.
+ */
 class Model{
 	public:
-		Model(char *argv0, char *fileName);
+		Model(char *argv0, const char *fileName);
 		~Model();
 	private:
-		PyObject *globals, *locals;
+		PyObject *pglobals, *plocals;
+	
 };
 
 
