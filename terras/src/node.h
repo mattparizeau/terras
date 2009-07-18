@@ -12,6 +12,7 @@
  * abstract, and not generally used specifically, except perhaps for testing. */
 class Node{
 	public:
+
 		Node(std::string nodeId);
 		//~Node();
 		virtual void render();
@@ -19,18 +20,23 @@ class Node{
 		virtual void ready();
 		virtual void unready();
 		std::string getId();
+
+		/** Handles Python callbacks from node actions. */
+		class Callback{
+			public:
+				
+				void call();
+			private:
+				
+		};
+
 	private:
+		std::vector<Callback*> callbacks;
 		std::string id;
 		int refCount;
 };
 
-/** A node which is rendered as a three-dimensional cube, which is textured
- * such that it appears as a seamless node like those in Myst III or Myst IV. */
-class CubeNode: public Node{
-	public:
-	
-	private:
-		
-};
+
+
 
 #endif
