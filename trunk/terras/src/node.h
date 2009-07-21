@@ -19,24 +19,23 @@ class Node{
 		virtual void handleClick(int x, int y);
 		virtual void ready();
 		virtual void unready();
+
+		void addCallback(Callback *cb);
 		std::string getId();
 
-		/** Handles Python callbacks from node actions. */
-		class Callback{
-			public:
-				
-				void call();
-			private:
-				
-		};
+//		/** Handles Python callbacks from node actions. */
+// 		class Callback{
+// 			public:
+// 				void call();
+// 			private:
+// 				
+// 		};
 
 	private:
 		std::vector<Callback*> callbacks;
 		std::string id;
 		int refCount;
 };
-
-
 
 
 #endif

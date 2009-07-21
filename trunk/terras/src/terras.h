@@ -21,8 +21,12 @@
 // #endif
 /* Class predefinitions */
 class Model;
+
 class Node;
 class CubeNode;
+
+class Callback;
+class PythonCallback;
 
 extern Model *model;
 extern Node *currNode;

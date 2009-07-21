@@ -14,9 +14,11 @@ class Model{
 	public:
 		Model(char *argv0, const char *fileName);
 		~Model();
+		void addNode(std::string id, Node *node);
+		Node *getNode(std::string id);
 	private:
 		PyObject *pglobals, *plocals;
-	
+		std::map<std::string, Node*> nodes;
 };
 
 

@@ -1,5 +1,6 @@
 #include "terras.h"
 #include "model.h"
+#include "callback.h"
 #include "node.h"
 
 
@@ -8,6 +9,7 @@ Node::Node(std::string nodeId){
 	id = nodeId;
 	refCount = 0;
 	std::cout << "Created node " << id << std::endl;
+	model->addNode(id, this);
 }
 
 /** Render a generic node.  This is a simple text-based example. */
@@ -48,11 +50,16 @@ std::string Node::getId(){
 	return id;
 }
 
-using namespace boost::python;
-
-BOOST_PYTHON_MODULE(terras){
-	class_<Node>("Node", init<std::string>())
-		.def("getId", &Node::getId)
-	;
+/** Add a callback to this node. */
+void Node::addCallback(Callback *cb){
+	callbacks.push_back(cb);
 }
+
+// using namespace boost::python;
+// 
+// BOOST_PYTHON_MODULE(terras){
+// 	class_<Node>("Node", init<std::string>())
+// 		.def("getId", &Node::getId)
+// 	;
+// }
 
