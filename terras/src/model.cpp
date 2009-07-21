@@ -24,10 +24,21 @@ Model::Model(char *argv0, const char *fileName){
 	
 }
 
+/** Destructor for the model, which terminates the Python process and decrements
+ * the appropriate reference counts. */
 Model::~Model(){
 	/* Decrement local variables */
 	Py_DECREF(pglobals);
 	Py_DECREF(plocals);
 
 	Py_Finalize();
+}
+
+/** Add a node to the directed graph. */
+void Model::addNode(std::string id, Node *node){
+	nodes[id] = node;
+}
+/** Get a node by it's ID. */
+Node *Model::getNode(std::string id){
+	return nodes[id];
 }

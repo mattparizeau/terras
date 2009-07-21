@@ -5,8 +5,6 @@
 
 #include "terras.h"
 #include "model.h"
-#include "node.h"
-#include "cubenode.h"
 
 /** Pointer to the global model object. */
 Model *model;
@@ -24,6 +22,10 @@ int main(){
 
 #else
 
+#include "node.h"
+#include "callback.h"
+#include "cubenode.h"
+
 /** Testing entry point for terras. */
 //int main(int argc, char **argv){
 int main(int argc, char **argv){
@@ -33,6 +35,10 @@ int main(int argc, char **argv){
 	node->handleClick(50, 21);
 	node->ready();
 	node->unready();
+
+	PythonCallback *cb = new PythonCallback(node);
+	cb->setCode("print \"Python Callback successful!\"");
+	cb->call();
 }
 #endif
 
