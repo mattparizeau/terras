@@ -12,12 +12,17 @@
  */
 class Model{
 	public:
+		/* Constructors and Destructors */
 		Model(char *argv0, const char *fileName);
 		~Model();
+		/* Python Interface */
+		void callPython(const char *code);
+
+		/* Node functions */
 		void addNode(std::string id, Node *node);
 		Node *getNode(std::string id);
 	private:
-		PyObject *pglobals, *plocals;
+		PyObject *pmain, *pglobals; //*plocals, *pmain;
 		std::map<std::string, Node*> nodes;
 };
 

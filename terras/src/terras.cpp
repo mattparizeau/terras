@@ -37,7 +37,7 @@ int main(int argc, char **argv){
 	node->unready();
 
 	PythonCallback *cb = new PythonCallback(node);
-	cb->setCode("print \"Python Callback successful!\"");
+	cb->setCode("print \"Python Callback successful:\", x");
 	cb->call();
 }
 #endif

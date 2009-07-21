@@ -7,19 +7,17 @@ Model::Model(char *argv0, const char *fileName){
 	FILE *f = fopen(fileName,"r");
 	assert(f);
 
-	/* Initialize global and local dictionaries */
-	pglobals = PyDict_New();
-	plocals = PyDict_New();
-
 	Py_SetProgramName(argv0);
 	Py_Initialize();
 
-	if(PyImport_ImportModule("sys"))
-		printf("Loaded 'sys'\n");
+	/* Initialize global and local dictionaries */
+	pmain = PyImport_AddModule("__main__");
+	pglobals = PyModule_GetDict(pmain);
 
-	if(!PyRun_FileEx(f, fileName, Py_file_input, pglobals, plocals, 1)){
+	/* Run our initialization file */
+	if(!PyRun_FileEx(f, fileName, Py_file_input, pglobals, pglobals, 1)){
 		// Exception raised
-		printf("Exception raised!\n");
+		printf("Exception raised in Python script: %s!\n", fileName);
 	}
 	
 }
@@ -29,9 +27,15 @@ Model::Model(char *argv0, const char *fileName){
 Model::~Model(){
 	/* Decrement local variables */
 	Py_DECREF(pglobals);
-	Py_DECREF(plocals);
 
 	Py_Finalize();
+}
+
+/** Call a Python string with a consistent context from our initialization in
+ * terms of global and local dictionaries. */
+void Model::callPython(const char *code){
+	PyObject *pObj;
+	pObj = PyRun_String(code, Py_eval_input, pglobals, pglobals);
 }
 
 /** Add a node to the directed graph. */
