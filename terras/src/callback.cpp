@@ -7,21 +7,28 @@
 Callback::Callback(Node *parentNode){
 	node = parentNode;
 	node->addCallback(this);
+	target = NULL;
+	code = "";
 }
 
+/** Call this callback (virtual), */
 void Callback::call(){
 	std::cout << "Calling callback for node " << node->getId() << std::endl;
+	if(code != "")
+		model->callPython(code.c_str());
+	if(target != NULL)
+		model->setCurrentNode(target);
 }
 
-PythonCallback::PythonCallback(Node *parentNode) : Callback(parentNode){
-}
-
-void PythonCallback::call(){
-	PyRun_SimpleString(code.c_str());
-}
-
-
-void PythonCallback::setCode(std::string newCode){
+void Callback::setCode(std::string newCode){
 	code = newCode;
+}
+
+void Callback::setTarget(std::string targetId){
+	target = model->getNode(targetId);
+}
+
+void Callback::setTarget(Node *ptarget){
+	target = ptarget;
 }
 

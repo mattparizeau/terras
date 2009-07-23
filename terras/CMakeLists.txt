@@ -20,7 +20,10 @@ set(TERRAS_VERSION "${TERRAS_VERSION_MAJOR}.${TERRAS_VERSION_MINOR}.${TERRAS_VER
 FILE(GLOB public_headers include/*.h)
 FILE(GLOB private_headers src/*.h)
 FILE(GLOB sources src/*.cpp)
-SET(pythonSources src/node.cpp src/model.cpp)
+
+add_subdirectory(libs/yaml-cpp)
+INCLUDE_DIRECTORIES(${PYTHON_INCLUDE_PATH} ${BOOST_INCLUDE_PATH} ${SDL_INCLUDE_PATH})
+LINK_DIRECTORIES (${PYTHON_LIB_PATH} ${BOOST_LIB_PATH} ${SDL_LIB_PATH}) 
 
 ADD_EXECUTABLE (terras ${sources})
 #ADD_LIBRARY (pyterras ${pythonSources})
@@ -31,9 +34,6 @@ FIND_PACKAGE(PythonLibs)
 FIND_PACKAGE(Boost)
 FIND_PACKAGE(SDL)
 
-INCLUDE_DIRECTORIES(${PYTHON_INCLUDE_PATH} ${BOOST_INCLUDE_PATH} ${SDL_INCLUDE_PATH})
-LINK_DIRECTORIES (${PYTHON_LIB_PATH} ${BOOST_LIB_PATH} ${SDL_LIB_PATH}) 
-
-# Link the executable to the Hello library.
-target_link_libraries (terras python2.6 boost_python) 
+# link to the appropriate libraries
+target_link_libraries (terras yaml-cpp python2.6 boost_python) 
 #target_link_libraries (pyterras python2.6 boost_python) 
