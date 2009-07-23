@@ -21,9 +21,11 @@ class Model{
 		/* Node functions */
 		void addNode(std::string id, Node *node);
 		Node *getNode(std::string id);
+		void setCurrentNode(Node *node);
 	private:
 		PyObject *pmain, *pglobals; //*plocals, *pmain;
 		std::map<std::string, Node*> nodes;
+		Node *currNode;
 };
 
 

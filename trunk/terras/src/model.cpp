@@ -2,6 +2,8 @@
 #include "model.h"
 #include "node.h"
 
+
+
 /** Create a model with the given executable name. */
 Model::Model(char *argv0, const char *fileName){
 	FILE *f = fopen(fileName,"r");
@@ -11,12 +13,20 @@ Model::Model(char *argv0, const char *fileName){
 	Py_Initialize();
 
 	/* Initialize global and local dictionaries */
+// 	Py_InitModule("terras", terras);
+	initterras();
 	pmain = PyImport_AddModule("__main__");
 	pglobals = PyModule_GetDict(pmain);
+
+	//PyImport_AddModule("terras");
+	//Py_InitModule("terras",);
+
+	//boost::python::import("terras");
 
 	/* Run our initialization file */
 	if(!PyRun_FileEx(f, fileName, Py_file_input, pglobals, pglobals, 1)){
 		// Exception raised
+		PyErr_PrintEx(0);
 		printf("Exception raised in Python script: %s!\n", fileName);
 	}
 	
@@ -45,4 +55,8 @@ void Model::addNode(std::string id, Node *node){
 /** Get a node by it's ID. */
 Node *Model::getNode(std::string id){
 	return nodes[id];
+}
+/** Set the current node. */
+void Model::setCurrentNode(Node *node){
+	currNode = node;
 }

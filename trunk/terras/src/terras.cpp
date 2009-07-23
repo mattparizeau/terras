@@ -31,13 +31,14 @@ int main(){
 int main(int argc, char **argv){
 	model = new Model(argv[0], "data/terraslogic.py");
 	Node *node = new Node(std::string("node1"));
+	model->setCurrentNode(node);
 	node->render();
 	node->handleClick(50, 21);
 	node->ready();
 	node->unready();
 
 	PythonCallback *cb = new PythonCallback(node);
-	cb->setCode("print \"Python Callback successful:\", x");
+	cb->setCode("print \"Python Callback successful: x =\", x");
 	cb->call();
 }
 #endif
