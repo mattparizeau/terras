@@ -15,7 +15,7 @@ Node *currNode;
 /** Entry point for terras. */
 //int main(int argc, char **argv){
 int main(){
-	model = new Model(argv[0], "data/terraslogic.py");
+	model = new Model(argv[0]);
 
 	return 0;
 }
@@ -26,20 +26,28 @@ int main(){
 #include "callback.h"
 #include "cubenode.h"
 
+static void testModel(char *argv0);
 /** Testing entry point for terras. */
 //int main(int argc, char **argv){
 int main(int argc, char **argv){
-	model = new Model(argv[0], "data/terraslogic.py");
+	testModel(argv[0]);
+}
+
+static void testModel(char *argv0){
+	model = new Model(argv0);
+	model->runScript("data/testlogic.py");
 	Node *node = new Node(std::string("node1"));
+	CubeNode *node2 = new CubeNode(std::string("node2"));
 	model->setCurrentNode(node);
-	node->render();
 	node->handleClick(50, 21);
 	node->ready();
 	node->unready();
 
-	PythonCallback *cb = new PythonCallback(node);
-	cb->setCode("print \"Python Callback successful: x =\", x");
+	Callback *cb = new Callback(node);
+	cb->setCode("print \"Python Callback successful: x =\", x\nterras.setNode(\"node2\")");
+	//cb->setTarget("node2");
 	cb->call();
+	//assert(model->getCurrentNode()->getId() == "node2");
 }
 #endif
 

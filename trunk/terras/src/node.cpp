@@ -55,11 +55,5 @@ void Node::addCallback(Callback *cb){
 	callbacks.push_back(cb);
 }
 
-using namespace boost::python;
 
-BOOST_PYTHON_MODULE(terras){
-	class_<Node>("Node", init<std::string>())
-		.def("getId", &Node::getId)
-	;
-}
 

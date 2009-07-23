@@ -11,9 +11,12 @@
 #include <boost/python.hpp>
 
 #include <iostream>
+#include <fstream>
 #include <stdio.h>
 #include <vector>
 #include <map>
+
+#include "yaml.h"
 
 #define DEBUG 
 // #ifndef DEBUG

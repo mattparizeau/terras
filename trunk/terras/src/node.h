@@ -8,8 +8,6 @@
 #ifndef __NODE_H__
 #define __NODE_H__
 
-/** Initialize the Node object within embedded Python. */
-extern "C" void initterras();
 
 
 /** Represents a generic node within our directed graph.  This should be
@@ -26,15 +24,6 @@ class Node{
 
 		void addCallback(Callback *cb);
 		std::string getId();
-
-		//static void init_python();
-//		/** Handles Python callbacks from node actions. */
-// 		class Callback{
-// 			public:
-// 				void call();
-// 			private:
-// 				
-// 		};
 
 	private:
 		std::vector<Callback*> callbacks;

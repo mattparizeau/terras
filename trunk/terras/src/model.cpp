@@ -1,36 +1,24 @@
 #include "terras.h"
 #include "model.h"
 #include "node.h"
-
+#include "yaml.h"
 
 
 /** Create a model with the given executable name. */
-Model::Model(char *argv0, const char *fileName){
-	FILE *f = fopen(fileName,"r");
-	assert(f);
+Model::Model(char *argv0){
+	
 
 	Py_SetProgramName(argv0);
 	Py_Initialize();
 
 	/* Initialize global and local dictionaries */
-// 	Py_InitModule("terras", terras);
 	initterras();
 	pmain = PyImport_AddModule("__main__");
 	pglobals = PyModule_GetDict(pmain);
 
-	//PyImport_AddModule("terras");
-	//Py_InitModule("terras",);
-
-	//boost::python::import("terras");
-
-	/* Run our initialization file */
-	if(!PyRun_FileEx(f, fileName, Py_file_input, pglobals, pglobals, 1)){
-		// Exception raised
-		PyErr_PrintEx(0);
-		printf("Exception raised in Python script: %s!\n", fileName);
-	}
-	
 }
+
+
 
 /** Destructor for the model, which terminates the Python process and decrements
  * the appropriate reference counts. */
@@ -58,5 +46,54 @@ Node *Model::getNode(std::string id){
 }
 /** Set the current node. */
 void Model::setCurrentNode(Node *node){
+	std::cout << "Setting current node to " << node->getId() << std::endl;
 	currNode = node;
+}
+/** Set the current node. */
+void Model::setCurrentNode(std::string id){
+	std::cout << "Setting current node to " << id << std::endl;
+	currNode = nodes[id];
+}
+/** Get the current node. */
+Node *Model::getCurrentNode(){
+	return currNode;
+}
+
+/** Boost Python callback. */
+void setNode(std::string id){
+	std::cout << "called back setNode()" << std::endl;
+	model->setCurrentNode(id);
+}
+
+/** Render the current node. */
+void Model::render(){
+	currNode->render();
+}
+
+/** Run a Python script from a filename. */
+void Model::runScript(std::string fileName){
+	FILE *f = fopen(fileName.c_str(),"r");
+	assert(f);
+	if(!PyRun_FileEx(f, fileName.c_str(), Py_file_input, pglobals, pglobals, 1)){
+		// Exception raised
+		PyErr_PrintEx(0);
+		printf("Exception raised in Python script: %s!\n", fileName.c_str());
+	}
+}
+
+/** Load node information from a YAML file. */
+void Model::loadYAML(std::string fileName){
+	std::ifstream fin(fileName.c_str());
+//	YAML::Parser parser(fin);
+
+// 	while(parser) {
+// 		YAML::Node doc;
+// 		parser.GetNextDocument(doc);
+// 	}
+
+	return;
+}
+
+void Model::writeYAML(std::string fileName){
+	//std::ofstream fout(fileName);
 }
