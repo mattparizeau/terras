@@ -19,6 +19,9 @@ BOOST_PYTHON_MODULE(terras){
 	class_<Node>("Node", init<std::string>())
 		.def("getId", &Node::getId)
 	;
+// 	class_<Callback>("Callback", init<std::string>())
+// 		.def("call",&Callback::call)
+// 	;
 	def("setNode", setNode);
 }
 

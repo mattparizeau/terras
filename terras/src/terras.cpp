@@ -36,12 +36,9 @@ int main(int argc, char **argv){
 static void testModel(char *argv0){
 	model = new Model(argv0);
 	model->runScript("data/testlogic.py");
-	Node *node = new Node(std::string("node1"));
-	CubeNode *node2 = new CubeNode(std::string("node2"));
-	
 
-	Callback *cb = new Callback(node);
-	cb->setCode("print \"Python Callback successful: x =\", x\nterras.setNode(\"node2\")");
+	Callback *cb = new Callback(model->getNode("hello"));
+	cb->setCode("print \"Python Callback successful: x =\",x");
 	//cb->setTarget("node2");
 	cb->call();
 	//assert(model->getCurrentNode()->getId() == "node2");
