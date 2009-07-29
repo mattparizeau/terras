@@ -9,10 +9,11 @@ print("Loading Terras data...")
 
 import terras
 
+print dir(terras)
+
 n1 = terras.Node("hello")
 n2 = terras.Node("world")
 
-print dir(terras)
 terras.setNode("hello")
 
 x = 5

@@ -33,7 +33,7 @@ Model::~Model(){
  * terms of global and local dictionaries. */
 void Model::callPython(const char *code){
 	PyObject *pObj;
-	pObj = PyRun_String(code, Py_eval_input, pglobals, pglobals);
+	pObj = PyRun_String(code, Py_file_input, pglobals, pglobals);
 }
 
 /** Add a node to the directed graph. */

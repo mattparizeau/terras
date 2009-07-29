@@ -8,7 +8,7 @@ Callback::Callback(Node *parentNode){
 	node = parentNode;
 	node->addCallback(this);
 	target = NULL;
-	code = "";
+	code = std::string("");
 }
 
 /** Call this callback (virtual), */
@@ -19,14 +19,18 @@ void Callback::call(){
 		model->setCurrentNode(target);
 }
 
+/** Set the code that will be called by this callback. */
 void Callback::setCode(std::string newCode){
-	code = newCode;
+	code = std::string(newCode);
 }
 
+/** Set the node target of this callback.  When activated, the current node will
+ * switch to the target node. This takes a string */
 void Callback::setTarget(std::string targetId){
 	target = model->getNode(targetId);
 }
 
+/** Set the node target with a node pointer. */
 void Callback::setTarget(Node *ptarget){
 	target = ptarget;
 }
