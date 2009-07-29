@@ -10,9 +10,6 @@
 /** Initialize the Node object within embedded Python. */
 extern "C" void initterras();
 
-/** Callback to be exposed to Boost::Python. */
-void setNode(std::string id);
-
 /** The Model in our pattern, which in this case uses Python bindings to
  * handle node creation, game logic, and other such things.
  */

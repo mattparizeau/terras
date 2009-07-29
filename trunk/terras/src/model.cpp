@@ -6,7 +6,7 @@
 
 /** Create a model with the given executable name. */
 Model::Model(char *argv0){
-	
+	currNode = NULL;
 
 	Py_SetProgramName(argv0);
 	Py_Initialize();
@@ -59,12 +59,6 @@ Node *Model::getCurrentNode(){
 	return currNode;
 }
 
-/** Boost Python callback. */
-void setNode(std::string id){
-	std::cout << "called back setNode()" << std::endl;
-	model->setCurrentNode(id);
-}
-
 /** Render the current node. */
 void Model::render(){
 	currNode->render();
@@ -81,7 +75,8 @@ void Model::runScript(std::string fileName){
 	}
 }
 
-/** Load node information from a YAML file. */
+/** Load node information from a YAML file.  For the moment, it might
+ * be best to farm this out to Python, as pyyaml works pretty well. */
 void Model::loadYAML(std::string fileName){
 	std::ifstream fin(fileName.c_str());
 //	YAML::Parser parser(fin);
