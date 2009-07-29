@@ -14,8 +14,7 @@ Callback::Callback(Node *parentNode){
 /** Call this callback (virtual), */
 void Callback::call(){
 	std::cout << "Calling callback for node " << node->getId() << std::endl;
-	if(code != "")
-		model->callPython(code.c_str());
+	model->callPython(code.c_str());
 	if(target != NULL)
 		model->setCurrentNode(target);
 }

@@ -27,8 +27,8 @@ int main(){
 #include "cubenode.h"
 
 static void testModel(char *argv0);
+
 /** Testing entry point for terras. */
-//int main(int argc, char **argv){
 int main(int argc, char **argv){
 	testModel(argv[0]);
 }
@@ -38,16 +38,15 @@ static void testModel(char *argv0){
 	model->runScript("data/testlogic.py");
 	Node *node = new Node(std::string("node1"));
 	CubeNode *node2 = new CubeNode(std::string("node2"));
-	model->setCurrentNode(node);
-	node->handleClick(50, 21);
-	node->ready();
-	node->unready();
+	
 
 	Callback *cb = new Callback(node);
 	cb->setCode("print \"Python Callback successful: x =\", x\nterras.setNode(\"node2\")");
 	//cb->setTarget("node2");
 	cb->call();
 	//assert(model->getCurrentNode()->getId() == "node2");
+
+	std::cout << "Done" << std::endl;
 }
 #endif
 
