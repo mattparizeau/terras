@@ -40,6 +40,7 @@ int main(int argc, char **argv){
 
 static void testView(){
 	view = new View();
+	
 }
 
 static void testModel(char *argv0){
