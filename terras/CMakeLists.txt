@@ -35,5 +35,5 @@ FIND_PACKAGE(Boost)
 FIND_PACKAGE(SDL)
 
 # link to the appropriate libraries
-target_link_libraries (terras yaml-cpp python2.6 boost_python) 
+target_link_libraries (terras yaml-cpp python2.6 boost_python SDL)
 #target_link_libraries (pyterras python2.6 boost_python) 

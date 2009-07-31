@@ -5,11 +5,14 @@
 
 #include "terras.h"
 #include "model.h"
+#include "view.h"
 
 /** Pointer to the global model object. */
-Model *model;
+Model *model = NULL;
+/** Pointer to the global view object. */
+View *view = NULL;
 /** Global pointer to the current node (it's used in a lot of places). */
-Node *currNode;
+Node *currNode = NULL;
 
 #ifndef DEBUG
 /** Entry point for terras. */
@@ -27,10 +30,16 @@ int main(){
 #include "cubenode.h"
 
 static void testModel(char *argv0);
+static void testView();
 
 /** Testing entry point for terras. */
 int main(int argc, char **argv){
 	testModel(argv[0]);
+	testView();
+}
+
+static void testView(){
+	view = new View();
 }
 
 static void testModel(char *argv0){

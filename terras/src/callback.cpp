@@ -7,7 +7,15 @@
 Callback::Callback(Node *parentNode){
 	node = parentNode;
 	node->addCallback(this);
-	target = NULL;
+	targetId = std::string("");
+	code = std::string("");
+}
+
+/** Create a callback associated with a node id. */
+Callback::Callback(std::string id){
+	node = model->getNode(id);
+	node->addCallback(this);
+	targetId = std::string("");
 	code = std::string("");
 }
 
@@ -15,8 +23,8 @@ Callback::Callback(Node *parentNode){
 void Callback::call(){
 	std::cout << "Calling callback for node " << node->getId() << std::endl;
 	model->callPython(code.c_str());
-	if(target != NULL)
-		model->setCurrentNode(target);
+	if(targetId != "")
+		model->setCurrentNode(targetId);
 }
 
 /** Set the code that will be called by this callback. */
@@ -26,12 +34,7 @@ void Callback::setCode(std::string newCode){
 
 /** Set the node target of this callback.  When activated, the current node will
  * switch to the target node. This takes a string */
-void Callback::setTarget(std::string targetId){
-	target = model->getNode(targetId);
-}
-
-/** Set the node target with a node pointer. */
-void Callback::setTarget(Node *ptarget){
-	target = ptarget;
+void Callback::setTarget(std::string id){
+	targetId = id; 
 }
 

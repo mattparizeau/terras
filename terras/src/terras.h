@@ -9,6 +9,13 @@
 // Common libraries assumed to be present in other files
 #include <boost/python/detail/wrap_python.hpp>
 #include <boost/python.hpp>
+//#include <boost/scoped_ptr.hpp>
+//#include <boost/shared_ptr.hpp>
+//#include <boost/weak_ptr.hpp>
+
+#include <GL/gl.h>
+#include <GL/glu.h>
+#include <SDL/SDL.h>
 
 #include <iostream>
 #include <fstream>
@@ -24,6 +31,7 @@
 // #endif
 /* Class predefinitions */
 class Model;
+class View;
 
 class Node;
 class CubeNode;
