@@ -15,10 +15,7 @@ Model::Model(char *argv0){
 	initterras();
 	pmain = PyImport_AddModule("__main__");
 	pglobals = PyModule_GetDict(pmain);
-
 }
-
-
 
 /** Destructor for the model, which terminates the Python process and decrements
  * the appropriate reference counts. */
