@@ -6,11 +6,14 @@
 #include "terras.h"
 #include "model.h"
 #include "view.h"
+#include "controller.h"
 
 /** Pointer to the global model object. */
 Model *model = NULL;
 /** Pointer to the global view object. */
 View *view = NULL;
+/** Pointer to the global controller object. */
+Controller *controller = NULL;
 /** Global pointer to the current node (it's used in a lot of places). */
 Node *currNode = NULL;
 
@@ -36,6 +39,8 @@ static void testView();
 int main(int argc, char **argv){
 	testModel(argv[0]);
 	testView();
+	controller = new Controller();
+	controller->run();
 }
 
 static void testView(){

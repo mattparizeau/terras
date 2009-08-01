@@ -7,6 +7,7 @@ class View{
 	public:
 		View();
 		View(int winWidth, int winHeight);
+		void render();
 	private:
 		void initVideo();
 

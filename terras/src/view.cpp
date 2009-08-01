@@ -34,17 +34,22 @@ void View::initVideo(){
 
 	/* Not creating the window just yet -- I'm going to work on
 	 * the controller first. */
-// 	printf("Initializing SDL to %dx%dx%d\n", width, height, bpp);
-// 	window = SDL_SetVideoMode(width, height, bpp, vidFlags);
-// 
-// 	if(!window){
-// 		SDL_Quit();
-// 		exit(1);
-// 	}
-// 
-// 	SDL_WM_SetCaption("hello", NULL);
+	printf("Initializing SDL to %dx%dx%d\n", width, height, bpp);
+	window = SDL_SetVideoMode(width, height, bpp, vidFlags);
+
+	if(!window){
+		SDL_Quit();
+		exit(1);
+	}
+
+	SDL_WM_SetCaption("hello", NULL);
 
 	
+}
+
+/** Render the scene. */
+void View::render(){
+	// TODO: Render with OpenGL
 }
 
 
