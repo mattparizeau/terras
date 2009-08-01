@@ -32,6 +32,7 @@
 /* Class predefinitions */
 class Model;
 class View;
+class Controller;
 
 class Node;
 class CubeNode;
@@ -40,6 +41,8 @@ class Callback;
 class PythonCallback;
 
 extern Model *model;
+extern View *view;
+extern Controller *controller;
 extern Node *currNode;
 
 #endif
